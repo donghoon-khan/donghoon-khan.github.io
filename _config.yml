@@ -21,9 +21,9 @@ title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "강동훈"
 description              : "개발 블로그."
-url                      : "https://dhkang22.github.io/"
+url                      : "https://donghoon-khan.github.io/"
 baseurl                  : ""
-repository               : "dhkang22/dhkang22.github.io"
+repository               : "donghoon-khan/donghoon-khan.github.io"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : "/assets/img/profile.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
@@ -129,7 +129,7 @@ footer:
       # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/dhkang22"
+      url: "https://github.com/donghoon-khan"
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
