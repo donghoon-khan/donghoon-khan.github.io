@@ -1,0 +1,69 @@
+---
+layout: default
+---
+<script>
+    $(function() {
+    $('.js-conveyor-1').jConveyorTicker({
+      anim_duration:   200,    // Specify the time (in milliseconds) the animation takes to move 10 pixels
+      reverse_elm:     false,   // Enable the use of the reverse animation trigger HTML element
+      force_loop:      false,   // Force the initialization even if the items are too small in total width
+      start_paused:    false,   // Initialize in a paused state
+    });
+    $('#grid-container').cubeportfolio({
+        
+     });
+  });
+</script>
+
+{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
+  {% include page__hero.html %}
+{% elsif page.header.video.id and page.header.video.provider %}
+  {% include page__hero_video.html %}
+{% endif %}
+
+
+<div class="js-conveyor-1">
+    <ul>
+        {% for tag in site.tags %} {% capture tag_name %}{{ tag | first }}{% endcapture %}
+            <li class="tag-image">
+                <a href="{{ site.baseurl }}/posts/#{{ tag_name }}">
+                    <img src="/assets/img/tags/{{ tag_name }}.png" alt="Some textual description of image"/>
+                </a>
+            </li>
+        {% endfor %}
+      
+    </ul>
+  </div>
+
+  <div id="grid-container">
+    <div class="cbp-item">
+        <a href="#" title="custom title 1">
+            <img src="/assets/img/tags/aws.png" alt="custom alt 1" width="100%">
+        </a>
+    </div>
+    <div class="cbp-item">
+        <a href="#" title="custom title 2">
+            <img src="/assets/img/tags/kubernetes.png" alt="custom alt 2" width="100%">
+        </a>
+    </div>
+    <div class="cbp-item">
+        <a href="#" title="custom title 3">
+            <img src="/assets/img/tags/spring.png" alt="custom alt 3" width="100%">
+        </a>
+    </div>
+</div>
+
+
+<div id="main" role="main">
+  <article class="splash" itemscope itemtype="https://schema.org/CreativeWork">
+    {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
+    {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
+    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">{% endif %}
+    {% if page.last_modified_at %}<meta itemprop="dateModified" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
+
+    <section class="page__content" itemprop="text">
+      {{ content }}
+    </section>
+  </article>
+</div>
+
