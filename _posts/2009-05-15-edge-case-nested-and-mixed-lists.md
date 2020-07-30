@@ -1,7 +1,10 @@
 ---
 title: "Edge Case: Nested and Mixed Lists"
+summary: "test for summary"
 categories:
-  - Edge Case
+  - DevOps
+  - WEB
+  - ETC
 tags:
   - aws
   - spring

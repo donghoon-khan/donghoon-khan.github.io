@@ -3,15 +3,54 @@ layout: default
 ---
 <script>
     $(function() {
-    $('.js-conveyor-1').jConveyorTicker({
-      anim_duration:   200,    // Specify the time (in milliseconds) the animation takes to move 10 pixels
-      reverse_elm:     false,   // Enable the use of the reverse animation trigger HTML element
-      force_loop:      false,   // Force the initialization even if the items are too small in total width
-      start_paused:    false,   // Initialize in a paused state
+    $('.tags-conveyor').jConveyorTicker({
+      anim_duration:   200,
+      reverse_elm:     false,
+      force_loop:      false,
+      start_paused:    false,
     });
-    $('#grid-container').cubeportfolio({
-        
-     });
+     $('#js-grid-blog-posts').cubeportfolio({
+        filters: '#js-filters-awesome-work',
+        loadMore: '#js-loadMore-awesome-work',
+        loadMoreAction: 'click',
+        layoutMode: 'grid',
+        defaultFilter: '*',
+        animationType: 'scaleSides',
+        gapHorizontal: 30,
+        gapVertical: 30,
+        gridAdjustment: 'responsive',
+        mediaQueries: [{
+            width: 1500,
+            cols: 4,
+        }, {
+            width: 1100,
+            cols: 3,
+        }, {
+            width: 800,
+            cols: 3,
+        }, {
+            width: 480,
+            cols: 2,
+            options: {
+                caption: '',
+                gapHorizontal: 50,
+                gapVertical: 20,
+            }
+        }, {
+            width: 320,
+            cols: 1,
+            options: {
+                caption: '',
+                gapHorizontal: 50,
+            }
+        }],
+        caption: 'revealBottom',
+        displayType: 'fadeIn',
+        displayTypeSpeed: 400,
+        caption: 'zoom',
+        displayType: 'fadeIn',
+        displayTypeSpeed: 400,
+    });
   });
 </script>
 
@@ -21,49 +60,64 @@ layout: default
   {% include page__hero_video.html %}
 {% endif %}
 
-
-<div class="js-conveyor-1">
+<div class="tags-conveyor">
     <ul>
-        {% for tag in site.tags %} {% capture tag_name %}{{ tag | first }}{% endcapture %}
-            <li class="tag-image">
-                <a href="{{ site.baseurl }}/posts/#{{ tag_name }}">
-                    <img src="/assets/img/tags/{{ tag_name }}.png" alt="Some textual description of image"/>
-                </a>
-            </li>
-        {% endfor %}
-      
+    {% for tag in site.tags %} {% capture tag_name %}{{ tag | first }}{% endcapture %}
+        <li class="tag-image">
+            <a href="{{ site.baseurl }}/posts/#{{ tag_name }}">
+                <img src="/assets/img/tags/{{ tag_name }}.png" alt="Some textual description of image"/>
+            </a>
+        </li>
+    {% endfor %}
     </ul>
-  </div>
+</div>
+<br/><br/>
 
-  <div id="grid-container">
-    <div class="cbp-item">
-        <a href="#" title="custom title 1">
-            <img src="/assets/img/tags/aws.png" alt="custom alt 1" width="100%">
-        </a>
+<div id="js-filters-awesome-work" class="cbp-l-filters-work">
+    <div data-filter="*" class="cbp-filter-item-active cbp-filter-item">
+        ALL
     </div>
-    <div class="cbp-item">
-        <a href="#" title="custom title 2">
-            <img src="/assets/img/tags/kubernetes.png" alt="custom alt 2" width="100%">
-        </a>
+    {% for category in site.categories %} {% capture category_name %}{{ category | first }}{% endcapture %}
+    <div data-filter=".{{ category_name }}" class="cbp-filter-item">
+        {{ category_name }} <div class="cbp-filter-counter"></div>
     </div>
-    <div class="cbp-item">
-        <a href="#" title="custom title 3">
-            <img src="/assets/img/tags/spring.png" alt="custom alt 3" width="100%">
-        </a>
-    </div>
+    {% endfor %}
+</div>
+<div id="js-grid-blog-posts" class="cbp">
+    {% for post in site.posts %}    
+        {% assign post_category = "" %}
+        {% for category in post.categories %}
+            {% assign tmp = post_category | append: category | append: " " %}
+            {% assign post_category = tmp %}
+        {% endfor %}
+        <div class="cbp-item {{ post_category }}">
+            <a href="{{ post.url }}" target="_blank" class="cbp-caption">
+                <div class="cbp-caption-defaultWrap">
+                    <img src="/assets/img/profile.png" alt="">
+                </div>
+                <div class="cbp-caption-activeWrap">
+                    <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+                            <div class="cbp-l-caption-text">VIEW POST</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a href="{{ post.url }}" target="_blank" class="cbp-l-grid-blog-title">{{ post.title }}</a>
+            <div class="cbp-l-grid-blog-date">{{ post.date }}</div>
+            <div class="cbp-l-grid-blog-split">|</div>
+            <a href="#" class="cbp-l-grid-blog-comments">12 comments</a>
+            <div class="cbp-l-grid-blog-desc">{{ post.summary }}</div>
+        </div>
+    {% endfor %}    
+</div>
+<div id="js-loadMore-awesome-work" class="cbp-l-loadMore-button">
+    <a href="ajax-awesome-work/loadMore.html" class="cbp-l-loadMore-link" rel="nofollow">
+        <span class="cbp-l-loadMore-defaultText">LOAD MORE</span>
+        <span class="cbp-l-loadMore-loadingText">LOADING...</span>
+        <span class="cbp-l-loadMore-noMoreLoading">NO MORE WORKS</span>
+    </a>
 </div>
 
 
-<div id="main" role="main">
-  <article class="splash" itemscope itemtype="https://schema.org/CreativeWork">
-    {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">{% endif %}
-    {% if page.last_modified_at %}<meta itemprop="dateModified" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
-
-    <section class="page__content" itemprop="text">
-      {{ content }}
-    </section>
-  </article>
-</div>
 
