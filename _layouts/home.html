@@ -11,8 +11,6 @@ layout: default
     });
      $('#js-grid-blog-posts').cubeportfolio({
         filters: '#js-filters-awesome-work',
-        loadMore: '#js-loadMore-awesome-work',
-        loadMoreAction: 'click',
         layoutMode: 'grid',
         defaultFilter: '*',
         animationType: 'scaleSides',
@@ -72,8 +70,8 @@ layout: default
     </ul>
 </div>
 <br/><br/>
-
-<div id="js-filters-awesome-work" class="cbp-l-filters-work">
+<div style="max-width: 980px; width: 97%; margin: 100px auto; min-height: 1000px;">
+  <div id="js-filters-awesome-work" class="cbp-l-filters-work">
     <div data-filter="*" class="cbp-filter-item-active cbp-filter-item">
         ALL
     </div>
@@ -84,40 +82,32 @@ layout: default
     {% endfor %}
 </div>
 <div id="js-grid-blog-posts" class="cbp">
-    {% for post in site.posts %}    
-        {% assign post_category = "" %}
-        {% for category in post.categories %}
-            {% assign tmp = post_category | append: category | append: " " %}
-            {% assign post_category = tmp %}
-        {% endfor %}
-        <div class="cbp-item {{ post_category }}">
-            <a href="{{ post.url }}" target="_blank" class="cbp-caption">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="/assets/img/profile.png" alt="">
-                </div>
-                <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                        <div class="cbp-l-caption-body">
-                            <div class="cbp-l-caption-text">VIEW POST</div>
-                        </div>
+  {% for post in site.posts %}    
+    {% assign post_category = "" %}
+    {% for category in post.categories %}
+      {% assign tmp = post_category | append: category | append: " " %}
+      {% assign post_category = tmp %}
+    {% endfor %}
+    <div class="cbp-item {{ post_category }}">
+        <a href="{{ post.url }}" target="_blank" class="cbp-caption">
+            <div class="cbp-caption-defaultWrap">
+                <img src="/assets/img/profile.png" alt="">
+            </div>
+            <div class="cbp-caption-activeWrap">
+                <div class="cbp-l-caption-alignCenter">
+                    <div class="cbp-l-caption-body">
+                        <div class="cbp-l-caption-text">VIEW POST</div>
                     </div>
                 </div>
-            </a>
-            <a href="{{ post.url }}" target="_blank" class="cbp-l-grid-blog-title">{{ post.title }}</a>
-            <div class="cbp-l-grid-blog-date">{{ post.date }}</div>
-            <div class="cbp-l-grid-blog-split">|</div>
-            <a href="#" class="cbp-l-grid-blog-comments">12 comments</a>
-            <div class="cbp-l-grid-blog-desc">{{ post.summary }}</div>
-        </div>
+            </div>
+        </a>
+        <a href="{{ post.url }}" target="_blank" class="cbp-l-grid-blog-title">{{ post.title }}</a>
+        <div class="cbp-l-grid-blog-date">{{ post.date }}</div>
+        <div class="cbp-l-grid-blog-split">|</div>
+        <a href="#" class="cbp-l-grid-blog-comments">12 comments</a>
+        <div class="cbp-l-grid-blog-desc">{{ post.summary }}</div>
+    </div>
     {% endfor %}    
+  </div>
 </div>
-<div id="js-loadMore-awesome-work" class="cbp-l-loadMore-button">
-    <a href="ajax-awesome-work/loadMore.html" class="cbp-l-loadMore-link" rel="nofollow">
-        <span class="cbp-l-loadMore-defaultText">LOAD MORE</span>
-        <span class="cbp-l-loadMore-loadingText">LOADING...</span>
-        <span class="cbp-l-loadMore-noMoreLoading">NO MORE WORKS</span>
-    </a>
-</div>
-
-
 
