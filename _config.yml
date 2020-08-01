@@ -99,9 +99,6 @@ author:
   location         : "Republic of Korea"
   email            : mustwin@kakao.com
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:mustwin@kakao.com"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://donghoon-khan.github.io"
@@ -178,14 +175,12 @@ keep_files:
 encoding: "utf-8"
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 
-
 # Conversion
 markdown: kramdown
 highlighter: rouge
 lsi: false
 excerpt_separator: "\n\n"
 incremental: false
-
 
 # Markdown Processing
 kramdown:
