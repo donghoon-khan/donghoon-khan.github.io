@@ -25,7 +25,7 @@ url                      : "https://donghoon-khan.github.io/"
 baseurl                  : ""
 repository               : "donghoon-khan/donghoon-khan.github.io"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
-logo                     : "/assets/img/profile.png"
+logo                     : "/assets/img/donghoon-khan-logo.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
