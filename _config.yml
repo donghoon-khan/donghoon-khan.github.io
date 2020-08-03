@@ -20,7 +20,7 @@ title                    : "강동훈 블로그"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "강동훈"
-description              : "강동훈 개발 블로그"
+description              : "Hello, I'm a SW Developer based in Seongnam, Republic of Korea"
 url                      : "https://donghoon-khan.github.io/"
 baseurl                  : ""
 repository               : "donghoon-khan/donghoon-khan.github.io"
@@ -32,7 +32,7 @@ words_per_minute         : 200
 comments:
   provider               : "disqus"
   disqus:
-    shortname            : dhkang22-github-io
+    shortname            : donghoon-khan-github-io.disqus.com
   discourse:
     server               : # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963 , e.g.: meta.discourse.org
   facebook:
