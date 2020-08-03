@@ -103,7 +103,7 @@ layout: default
         <a href="{{ post.url }}" target="_blank" class="cbp-l-grid-blog-title">{{ post.title }}</a>
         <div class="cbp-l-grid-blog-date">{{ post.date }}</div>
         <div class="cbp-l-grid-blog-split">|</div>
-        <a href="{{ site.url }}{{ page.url }}#disqus_thread" data-disqus-identifier="{{ page.id }}" class="cbp-l-grid-blog-comments">comments</a>
+        <a href="{{ post.url }}#disqus_thread" data-disqus-identifier="{{ page.id }}" class="cbp-l-grid-blog-comments">comments</a>
         <div class="cbp-l-grid-blog-desc">{{ post.summary }}</div>
     </div>
     {% endfor %}    
