@@ -1,0 +1,20 @@
+/* jumbotron */
+.jumbotron {
+    background-color: var(--main-background-color) !important;
+    background-image: url("/assets/img/home-background.png");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    height: 300px; 
+    width: auto; 
+}
+
+.jumbotron-heading{
+    color: #111;
+    font-size: 35px;
+}
+
+.author-profile-img {
+    width: 150px;
+    height: 150px;
+}
