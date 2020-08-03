@@ -57,7 +57,7 @@ layout: default
 {% elsif page.header.video.id and page.header.video.provider %}
   {% include page__hero_video.html %}
 {% endif %}
-<div class="tags-conveyor">
+<div class="tags-conveyor" style="margin-top: 20px">
     <ul>
     {% for tag in site.tags %} {% capture tag_name %}{{ tag | first }}{% endcapture %}
         <li class="tag-image">
@@ -69,7 +69,7 @@ layout: default
     </ul>
 </div>
 <br/><br/>
-<div style="max-width: 980px; width: 97%; margin: 100px auto; min-height: 1000px;">
+<div style="max-width: 980px; width: 97%; margin: auto; min-height: 1000px;">
   <div id="js-filters-awesome-work" class="cbp-l-filters-work">
     <div data-filter="*" class="cbp-filter-item-active cbp-filter-item">
         ALL

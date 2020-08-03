@@ -20,7 +20,7 @@ title                    : "강동훈 블로그"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "강동훈"
-description              : ""
+description              : "Hello, I'm a SW Developer based in Seongnam, Republic of Korea"
 url                      : "https://donghoon-khan.github.io/"
 baseurl                  : ""
 repository               : "donghoon-khan/donghoon-khan.github.io"
