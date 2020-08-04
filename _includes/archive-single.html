@@ -27,6 +27,9 @@
     {% if post.date %}
     <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> {{ post.date | date: "%B %d %Y" }}</p>
     {% endif %}
-    {% if post.excerpt %}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{% endif %}
+
+    {% if post.summary %}
+    <p class="archive__item-excerpt" itemprop="description">{{ post.summary | markdownify | strip_html | truncate: 160 }}</p>
+    {% endif %}
   </article>
 </div>
