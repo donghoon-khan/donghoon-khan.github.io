@@ -100,8 +100,9 @@ layout: default
                 </div>
             </div>
         </a>
+
         <a href="{{ post.url }}" target="_blank" class="cbp-l-grid-blog-title">{{ post.title }}</a>
-        <div class="cbp-l-grid-blog-date">{{ post.date }}</div>
+        <div class="cbp-l-grid-blog-date"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> {{ post.date | date: "%B %d %Y" }}</div>
         <div class="cbp-l-grid-blog-split">|</div>
         <a href="{{ site.url }}{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}" class="cbp-l-grid-blog-comments"></a>
         <div class="cbp-l-grid-blog-desc">{{ post.summary }}</div>
