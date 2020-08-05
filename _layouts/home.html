@@ -25,11 +25,7 @@ layout: default
             cols: 4,
         }, {
             width: 480,
-            cols: 4,
-            options: {
-                gapHorizontal: 15,
-                gapVertical: 15,
-            }
+            cols: 2,
         }],
         caption: 'revealBottom',
         displayType: 'fadeIn',
@@ -82,13 +78,19 @@ layout: default
                     <div class="cbp-caption-defaultWrap">
                         <img src="/assets/img/profile.png" alt="">
                     </div>
-                    <div class="cbp-caption-activeWrap">VIEW POST</div>
+                    <div class="cbp-caption-activeWrap">
+                        <div class="cbp-l-caption-alignCenter">
+                            <div class="cbp-l-caption-body">
+                                <div class="cbp-l-caption-text">VIEW POST</div>
+                            </div>
+                        </div>
+                    </div>
                 </a>
                 <a href="{{ post.url }}" class="cbp-l-grid-work-title" rel="nofollow">{{ post.title }}</a>
                 <div class="cbp-l-grid-blog-desc">{{ post.summary }}</div>
                 <div class="cbp-l-grid-blog-date-comments">
                     <div class="cbp-l-grid-blog-date"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> {{ post.date | date: "%B %d %Y" }}</div>
-                    <div class="cbp-l-grid-blog-split">|</div>
+                    <div class="cbp-l-grid-blog-split"> </div>
                     <a href="{{ site.url }}{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}" class="cbp-l-grid-blog-comments"></a>
                 </div>
             </div>
