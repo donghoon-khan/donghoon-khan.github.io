@@ -19,11 +19,17 @@ layout: default
         gridAdjustment: 'responsive',
         mediaQueries: [{
             width: 1500,
-            cols: 4,
-        }, {
+            cols: 5,
+        }, 
+        {
             width: 1100,
+            cols: 4,
+        }, 
+        {
+            width: 800,
             cols: 3,
-        }, {
+        }, 
+        {
             width: 480,
             cols: 2,
             options: {
@@ -80,7 +86,7 @@ layout: default
             <div class="cbp-item {{ post_category }}">
                 <a href="{{ post.url }}" class="cbp-caption" rel="nofollow">
                     <div class="cbp-caption-defaultWrap">
-                        <img src="/assets/img/profile.png" alt="">
+                        <img src="{{ post.thumbnail }}" alt="">
                     </div>
                     <div class="cbp-caption-activeWrap">
                         <div class="cbp-l-caption-alignCenter">

@@ -1,7 +1,8 @@
 ---
-title: "test3"
-summary: "test3 for summary"
+title: "default"
+summary: "default"
 categories:
+  - DevOps
   - WEB
   - etc
 tags:

@@ -268,6 +268,7 @@ defaults:
       type: posts
     values:
       layout: single
+      thumbnail: "/assets/img/thubmnail/default.jpg"
       toc: true
       toc_sticky: true
       author_profile: false
