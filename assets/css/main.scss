@@ -6,24 +6,3 @@
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
-
-.tag-image{
-    overflow: hidden;
-    padding-left: 30px;
-    padding-right: 30px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    transition: transform .3s;
-    width: auto;
-    height: auto;
-    margin: 0%;
-    display:inline-block;
-  }
-  .tag-image:hover{
-    -ms-transform: scale(1.1);
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-  }
-  .tag-image img {
-    width: 100%;
-  }

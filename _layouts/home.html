@@ -9,7 +9,7 @@ layout: default
       force_loop:      false,
       start_paused:    false,
     });
-     $('#js-grid-blog-posts').cubeportfolio({
+     $('#js-grid-awesome-work').cubeportfolio({
         filters: '#js-filters-awesome-work',
         layoutMode: 'grid',
         defaultFilter: '*',
@@ -22,24 +22,13 @@ layout: default
             cols: 4,
         }, {
             width: 1100,
-            cols: 3,
-        }, {
-            width: 800,
-            cols: 3,
+            cols: 4,
         }, {
             width: 480,
-            cols: 2,
+            cols: 4,
             options: {
-                caption: '',
-                gapHorizontal: 50,
-                gapVertical: 20,
-            }
-        }, {
-            width: 320,
-            cols: 1,
-            options: {
-                caption: '',
-                gapHorizontal: 50,
+                gapHorizontal: 15,
+                gapVertical: 15,
             }
         }],
         caption: 'revealBottom',
@@ -71,45 +60,38 @@ layout: default
         </ul>
     </div>
     <br/><br/>
-    <div style="max-width: 980px; width: 97%; margin: auto; min-height: 1000px;">
-        <div id="js-filters-awesome-work" class="cbp-l-filters-work">
-            <div data-filter="*" class="cbp-filter-item-active cbp-filter-item">
-                ALL
-            </div>
-            {% for category in site.categories %} {% capture category_name %}{{ category | first }}{% endcapture %}
-            <div data-filter=".{{ category_name }}" class="cbp-filter-item">
-                {{ category_name }} <div class="cbp-filter-counter"></div>
-            </div>
-            {% endfor %}
+    <div id="js-filters-awesome-work" class="cbp-l-filters-work">
+        <div data-filter="*" class="cbp-filter-item-active cbp-filter-item">
+            ALL
         </div>
-        <div id="js-grid-blog-posts" class="cbp">
+        {% for category in site.categories %} {% capture category_name %}{{ category | first }}{% endcapture %}
+        <div data-filter=".{{ category_name }}" class="cbp-filter-item">
+            {{ category_name }} <div class="cbp-filter-counter"></div>
+        </div>
+        {% endfor %}
+    </div>
+    <div id="js-grid-awesome-work" class="cbp cbp-l-grid-work">
         {% for post in site.posts %}    
             {% assign post_category = "" %}
             {% for category in post.categories %}
-            {% assign tmp = post_category | append: category | append: " " %}
-            {% assign post_category = tmp %}
+                {% assign tmp = post_category | append: category | append: " " %}
+                {% assign post_category = tmp %}
             {% endfor %}
             <div class="cbp-item {{ post_category }}">
-                <a href="{{ post.url }}" target="_blank" class="cbp-caption">
+                <a href="{{ post.url }}" class="cbp-caption" rel="nofollow">
                     <div class="cbp-caption-defaultWrap">
                         <img src="/assets/img/profile.png" alt="">
                     </div>
-                    <div class="cbp-caption-activeWrap">
-                        <div class="cbp-l-caption-alignCenter">
-                            <div class="cbp-l-caption-body">
-                                <div class="cbp-l-caption-text">VIEW POST</div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="cbp-caption-activeWrap">VIEW POST</div>
                 </a>
-
-                <a href="{{ post.url }}" target="_blank" class="cbp-l-grid-blog-title">{{ post.title }}</a>
-                <div class="cbp-l-grid-blog-date"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> {{ post.date | date: "%B %d %Y" }}</div>
-                <div class="cbp-l-grid-blog-split">|</div>
-                <a href="{{ site.url }}{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}" class="cbp-l-grid-blog-comments"></a>
+                <a href="{{ post.url }}" class="cbp-l-grid-work-title" rel="nofollow">{{ post.title }}</a>
                 <div class="cbp-l-grid-blog-desc">{{ post.summary }}</div>
+                <div class="cbp-l-grid-blog-date-comments">
+                    <div class="cbp-l-grid-blog-date"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> {{ post.date | date: "%B %d %Y" }}</div>
+                    <div class="cbp-l-grid-blog-split">|</div>
+                    <a href="{{ site.url }}{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}" class="cbp-l-grid-blog-comments"></a>
+                </div>
             </div>
-            {% endfor %}    
-        </div>
+        {% endfor %}
     </div>
 </div>
