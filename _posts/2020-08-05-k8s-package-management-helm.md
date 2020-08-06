@@ -9,7 +9,7 @@ summary: Introduction to Helm - Package Manager for Kubernetes
 thumbnail: "/assets/img/thubmnail/2020-08-05-k8s-package-management-helm.png"
 ---
 
-[Helm](https://helm.sh/)은 쿠버네티스용 패키지 매니지먼트 도구로 쿠버네티스용 apt dpkg, yum rpm, homebrew라고 생각하면 된다. Helm은 패키지 매니지먼트 도구 답게 설치, 업그레이드, 롤백, 삭제 등 강력하고 다양한 기능을 제공한다.
+[Helm](https://helm.sh/)은 쿠버네티스용 패키지 매니지먼트 도구로 쿠버네티스용 apt dpkg, yum rpm, homebrew라고 생각하면 된다. Helm은 패키지 매니지먼트 도구 답게 설치, 업그레이드, 롤백, 삭제 등 강력하고 다양한 기능을 제공한다.  
 웹 애플리케이션을 쿠버네티스 클러스터에 배포한다고 가정하자. 파드와 컨트롤러 외에도 DB에서 사용할 볼륨, DB 접속 정보를 저장할 컨피그 맵과 시크릿, 웹 애플리케이션을 노출 할 서비스 등 많은 오브젝트를 생성해야 한다. 전통적인 웹 애플리케이션하나에도 이렇게 많은 쿠버네티스 오브젝트들이 필요한데 MSA에서는 어떨까? 생성 뿐만 아니라 롤백, 삭제와 같은 작업을 해야 한다고 생각하면 끔찍하다. `Helm`을 도입한다면 귀찮고 번거로운 작업이 상당히 줄어드는데, `Helm`에 대해서 알아보자.
 
 ## Helm concept
