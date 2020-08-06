@@ -5,12 +5,14 @@ category:
 tags:
 - helm
 - kubernetes
-summary: Helm - The package manager for Kubernetes
+summary: Introduction to Helm - Package Manager for Kubernetes
+thumbnail: "/assets/img/thubmnail/2020-08-05-k8s-package-management-helm.png"
 ---
-쿠버네티스 클러스터에 마이크로서비스를 배포할 때 마다 관리해야할 쿠버네티스 오브젝트들은 계속 늘어난다. 일반적인 웹 애플리케이션을 쿠버네티스 클러스터에 배포한다고 가정하자. 파드와 컨트롤러 외에도 DB에서 사용할 볼륨, DB 접속 정보를 저장할 컨피그 맵과 시크릿, 웹 애플리케이션을 노출 할 서비스 등 많은 오브젝트를 생성해야 한다. 생성 이후에도 업데이트, 롤백, 삭제의 작업을 편하게 하기 위해서는 이를 관리할 패키지 매니지먼트 도구가 필요하다.  
-[Helm](https://helm.sh/)은 쿠버네티스용 패키지 매니지먼트 도구로 쿠버네티스용 apt dpkg, yum rpm, homebrew라고 생각하면 된다. Helm은 패키지 매니지먼트 도구 답게 설치, 업그레이드, 롤백, 삭제 등 강력하고 다양한 기능을 제공한다.
 
-## Helm
+[Helm](https://helm.sh/)은 쿠버네티스용 패키지 매니지먼트 도구로 쿠버네티스용 apt dpkg, yum rpm, homebrew라고 생각하면 된다. Helm은 패키지 매니지먼트 도구 답게 설치, 업그레이드, 롤백, 삭제 등 강력하고 다양한 기능을 제공한다.
+웹 애플리케이션을 쿠버네티스 클러스터에 배포한다고 가정하자. 파드와 컨트롤러 외에도 DB에서 사용할 볼륨, DB 접속 정보를 저장할 컨피그 맵과 시크릿, 웹 애플리케이션을 노출 할 서비스 등 많은 오브젝트를 생성해야 한다. 전통적인 웹 애플리케이션하나에도 이렇게 많은 쿠버네티스 오브젝트들이 필요한데 MSA에서는 어떨까? 생성 뿐만 아니라 롤백, 삭제와 같은 작업을 해야 한다고 생각하면 끔찍하다. `Helm`을 도입한다면 귀찮고 번거로운 작업이 상당히 줄어드는데, `Helm`에 대해서 알아보자.
+
+## Helm concept
 `Helm`을 잘 사용하기 위해서는 다음 세가지 요소에 대해 알아야 한다.
 1. `Chart`: 차트는 쿠버네티스 클러스터 내에서 필요한 모든 리소스들의 정의가 포함된 패키지이다. 타 시스템에서 apt dpkg, npm 등으로 패키지 관리 하던 것을 쿠버네티스에서는 helm chart로 할 수 있다.
 2. `Release`: 쿠버네티스에서 구동되는 helm chart의 인스턴스이다. 하나의 chart는 여러 번 설치할 수 있는데, 설치할 때 마다 새로운 release가 생성된다.
@@ -40,7 +42,7 @@ Helm2는 서버/클라이언트 구조로 helm 이라는 클라이언트가 till
 Helm3로 업그레이드 되면서 클라이언트/라이브러리 구조로 바꼈다. 쿠버네티스 클러스터에 tiller를 배포할 필요가 없어진 것이다. kubectl로 쿠버네티스 클러스터에 접근할 수 있는 상태에서 helm 클라이언트만 있으면 Helm을 사용할 수 있다.
 </div>
 
-## Helm Command
+## Helm command
 Helm은 많은 command를 제공하는데 자주 사용하는 command을 알아보자. 이 외의 command list 또는 자세한 사용법은 [Helm docs](https://helm.sh/docs/helm/)를 참고하자.
 
 ### Helm search
@@ -194,4 +196,4 @@ Creating helm-chart-demo
 ```
 
 ## Conclusion
-`Helm`의 여러가지 기능에 대해 기술했는데, 정말 유용한 도구라고 생각한다. 현재 Helm을 도입해 배포 자동화를 구축했는데, Helm chart가 아니었으면 많은 고생을 했을 것 같다. 뿐만 아니라 롤백에 있어서도 엄청 편하다. 이제는 많은 사람들이 Helm을 사용하고 있기에 다양한 차트들이 다양한 차트들이 [github](https://github.com/helm/charts)이나 [helmhub](https://hub.helm.sh/)에 올라와 있다. Chart를 처음 만드는 작업은 생소하고 어렵게 느껴질 수 있지만 이미 만들어진 많은 차트들을 보면서 따라한다면 금방 원하는 차트를 만들 수 있을 것이다.
+[github](https://github.com/helm/charts) 또는 [helmhub](https://hub.helm.sh/)를 보면 다양한 차트들을 만날 수 있다. 정말 많은 사람들이 Helm을 이용하고 있는 것 같다. Chart를 처음 만드는 것이 막막하다면 잘 만들어진 많은 차트들을 따라해 보자. 금방 내가 원하는 차트를 만들 수 있을 것이다.
