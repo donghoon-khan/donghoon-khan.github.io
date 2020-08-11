@@ -33,7 +33,7 @@ Foundational 부터 Specialty까지 난이도도 다양하고 Architect, Develop
 
 ## 시험결과
 시험 결과는 모든 시험문제를 제출하고, 설문까지 완료하면 바로 나온다. pass가 적혀 있으면 합격인데, 3 ~ 5일 내로 메일로 점수를 알려준다고 적혀있었던 것 같다. pass확인 후 바로 퇴실해서 제대로 기억이 나지 않는다.  
-시험치고 다음날 점수를 확인할 수 있다는 내용의 메일을 받았는데, [AWS Certmetrics](https://www.certmetrics.com/amazon/)로 이동하면 취득 점수와 인증서를 다운받을 수 있었다.
+시험치고 다음날 점수를 확인할 수 있다는 내용의 메일을 받았는데, [AWS Certmetrics](https://www.certmetrics.com/amazon/)에서 취득 점수와 인증서를 다운받을 수 있었다.
 ![dhkang-aws-dva-cert](/assets/img/posts/2020-08-10-review-aws-dev-associate-cert-dhkang-cert.png)  
 
 페이스북이랑 링크드인에 AWS 뱃지를 추가할 수 있다고도 하던데 나중에 추가해야겠다.  
