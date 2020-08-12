@@ -85,7 +85,7 @@ backend k8s-api
   server master2 ${Master2_ip}:6443 check
   server master3 ${Master3_ip}:6443 check
 ```
-* [설정 참고](https://github.com/dhkang22/kubernetes-cluster/tree/master/on-premise)
+* [설정 참고](https://github.com/donghoon-khan/kubernetes-demo/tree/master/cluster/on-premise)
 
 ### Docker, Kubernetes 설치(All Masters, All Nodes)
 ```bash 
