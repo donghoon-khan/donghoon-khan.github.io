@@ -5,6 +5,7 @@ category:
 tags:
 - kubernetes
 summary: Creating higily available kubernetes cluster with haproxy and keepalived
+thumbnail: "/assets/img/thumbnail/2020-08-10-creating-ha-k8s-cluster-thumbnail.png"
 ---
 쿠버네티스 클러스터는 `마스터`와 `노드`로 구성된다.
 * `마스터` - 클러스터 상태를 관리하는 프로세스의 묶음(kube-apiserver, kube-controller-manager, kube-scheduler)으로 노드를 관리하고, 클러스터의 상태를 유지할 책임을 진다.
@@ -196,3 +197,10 @@ $ kubectl get pod --all-namespaces
 ``` bash
 $ sudo systemctl start haproxy
 ```
+
+## Conclusion
+모든 단계를 마치면 아래의 그림과 같은 구성을 가지게 된다.
+![on-premise ha kubernetes cluster](/assets/img/posts/2020-08-10-block-diagram.png)  
+
+keepalived의 active상태의 Master가 죽으면 stanby상태의 Master가 active상태가 되어 VIP로 들어오는 트래픽을 ha-proxy로 전달한다. 동기화를 위해 ha-proxy로 들어온 트래픽을 모든 마스터의 apiserver로 전달함으로써 HA Master구조를 갖는 Kubernetes cluster를 구축할 수 있다.
+이제 다음 작업으로 Ceph 또는 GlusterFS를 사용해 클러스터에서 PV로 사용할 파일시스템을 구축 해 보자.
