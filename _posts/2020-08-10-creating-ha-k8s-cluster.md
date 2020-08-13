@@ -114,7 +114,7 @@ $ sudo apt-mark hold kubeadm kubelet kubectl docker-ce docker-ce-cli containerd.
 ## Kubernetes 클러스터 생성
 이제 쿠버네티스 클러스터를 생성하고 Master와 Node를 Join하면 된다.
 
-### Master1, Master2, Master3
+### All Masters
 ```bash
 $ sudo swapoff -a
 $ vi /etc/ssh/sshd_config #PermitRootLogint yes

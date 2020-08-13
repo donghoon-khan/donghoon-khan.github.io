@@ -27,7 +27,7 @@ Get Started 버튼을 눌러 계정과 버킷을 만들자.
 설정을 마무리 하고 홈 화면으로 가면 아래와 같은 UI가 뜰 것이다.
 ![influxdb home](/assets/img/posts/2020-08-08-spring-boot-influxdb2-home.png)
 
-대시보드, 쿼리, 태스크 및 알람까지 사용할 수 있으니 확인해 보자. 만약 influx CLI를 사용하고자 하면 token를 확인해 환경변수로 등록하자.
+대시보드, 쿼리, 태스크 및 알람까지 사용할 수 있으니 확인해 보자. 만약 influx CLI를 사용하고자 하면 token을 확인해 환경변수로 등록하자.
 ```bash
 export INFLUX_TOKEN=${token}
 ```
