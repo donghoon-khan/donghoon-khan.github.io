@@ -37,11 +37,19 @@ Spring과 InfluxDB v2.0을 통합하면 auto-configuration, Actuator micrometer 
 Spring-boot 애플리케이션에서 InfluxDB v2.0을 사용할 수 있는 방법에 대해 알아보자.
 
 ### Create Spring-boot project
-[Spring initializr](https://start.spring.io/)에서 dependencies로 `webflux`, `actuator`를 추가하고 스프링 프로젝트를 생성하자.
-또는 curl을 이용해 프로젝트를 생성하자.
+[Spring initializr](https://start.spring.io/)에서 `actuator`를 dependency 추가하고 스프링 프로젝트를 생성하자.
+또는 curl을 이용해 프로젝트를 생성하고 pom.xml에 influxdb-spring 디펜던시를 추가하자.
 ```bash
-$ mkdir kubernetes-spring && cd kubernetes-spring
-$ curl https://start.spring.io/starter.tgz -d dependencies=webflux,actuator | tar -xzvf -
+$ mkdir spring-influx2 && cd spring-influx2
+$ curl https://start.spring.io/starter.tgz -d dependencies=actuator | tar -xzvf -
+$ vi pom.xml
+```
+```bash
+<dependency>
+  <groupId>com.influxdb</groupId>
+  <artifactId>influxdb-spring</artifactId>
+  <version>1.10.0</version>
+</dependency>
 ```
 
 ### InfluxDB2 auto-configuration
