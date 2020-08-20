@@ -7,7 +7,7 @@ tags:
 thumbnail: "/assets/img/thumbnail/spring+influx.png"
 summary: How to spring-boot integration for InfluxDB v2.0
 ---
-[InfluxDB](https://www.influxdata.com/products/influxdb-overview/)는 시계열 데이터를 위한 Time series database이다. Go언어로 만들어진 오픈소스이며, OpenTSDB와 kairosDB를 합친 것 보다 많은 수의 Github star를 받을 정도로 유명한 시계열 DB이다. InfluxDB v2.0(beta) 나오면서 client library도 바꼈는데(InfluxDB v1.8 부터는 같다), Spring-boot 애플리케이션에서 InfluxDB 2.0을 사용하는 방법에 대해서 알아보자.
+[InfluxDB](https://www.influxdata.com/products/influxdb-overview/)는 시계열 데이터를 위한 Time series database이다. Go언어로 만들어진 오픈소스이며, OpenTSDB와 kairosDB를 합한 것 보다 많은 수의 Github star를 받을 정도로 유명한 시계열 DB이다. InfluxDB v2.0(beta) 나오면서 client library도 바꼈는데(InfluxDB v1.8 부터는 같다), Spring-boot 애플리케이션에서 InfluxDB 2.0을 사용하는 방법에 대해서 알아보자.
 
 ## InfluxDB v2.0 설치
 InfluxDB v2.0의 설치는 매우 간단하다. 바이너리 파일 하나만 설치하면 된다. 현재 macOS, Linux, Docker 그리고 Kubernetes까지 지원하고 있다. [Start with influxdb](https://v2.docs.influxdata.com/v2.0/get-started/#start-with-influxdb-oss)에서 자기한테 맞는 환경으로 설치하자.
@@ -198,7 +198,7 @@ public class TemperatureRepository {
 }
 ```
 Measurement는 RDB의 table이라 생각하면 되고, tag는 query시 검색 조건으로 사용하게 된다.  
-Entity를 정의하고 InfluxDBClient를 이용해서 write하면 된다. 예제에서는 POJO를 이용했는데 InfluxDB의 line protocol을 이용하거나, Data Point를 이용해 write할 수 있는데, 각자 상황에 맞게 사용하면 된다.
+Entity를 정의하고 InfluxDBClient를 이용해서 write하면 된다. 예제에서는 POJO를 이용했는데 InfluxDB의 line protocol, Data Point 등 여러 방식으로 write할 수 있는데 각자 상황에 맞게 사용하면 된다.
 
 ### Query data
 TemperatureRepository class를 다음과 같이 수정해 Temperature entity에 tag로 지정한 location을 이용해 쿼리하는 기능을 만들어 보자. Query는 [InfluxQL](https://docs.influxdata.com/influxdb/v1.8/query_language/)을 이용한다.
@@ -308,4 +308,5 @@ class DemoApplicationTests {
 Test를 실행하고 UI를 이용해 확인해보면 데이터를 확인 할 수 있다.
 ![influxdb data](/assets/img/posts/2020-08-08-spring-boot-influxdb2-data.png)
 
-UI를 통해 데이터를 시각화 하거나, InfluxQL을 쉽게 만들 수 있으니 자세히 살펴보자.
+UI를 통해 데이터를 시각화 하거나, InfluxQL을 쉽게 만들 수 있으니 자세히 살펴보자.  
+이번 포스트에서 작성한 예제 코드는 [github](https://github.com/donghoon-khan/kubernetes-demo/tree/master/app/spring-influx2)을 참고하면 된다.
