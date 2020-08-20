@@ -149,3 +149,162 @@ Maven dependency:
     <version>1.2.0-bonitoo-SNAPSHOT</version>
 </dependency>
 ```
+
+### Write data
+InfluxDB2를 Spring 환경에서 사용할 준비가 끝났다. POJO를 이용해 data를 write하는 방법을 알아보자.
+
+```java
+@Getter
+@Setter
+@NoArgsConstructor
+@Measurement(name = "Temperature")
+public class Temperature {
+
+    @Column(timestamp = true)
+    Instant time;
+
+    @Column(tag = true)
+    String location;
+
+    @Column
+    Double value;
+
+    @Builder
+    public Temperature(Instant time, String location, Double value) {
+        this.time = time;
+        this.location = location;
+        this.value = value;
+    }
+}
+```
+
+```java
+@Repository
+public class TemperatureRepository {
+
+    @Autowired
+    private InfluxDBClient influx;
+
+    public void save(final Temperature entity) {
+        final WriteApi writeApi = influx.getWriteApi();
+        writeApi.writeMeasurement(WritePrecision.US, entity);
+    }
+
+    public void save(final List<Temperature> entities) {
+        final WriteApi writeApi = influx.getWriteApi();
+        writeApi.writeMeasurements(WritePrecision.US, entities);
+    }
+}
+```
+Measurement는 RDB의 table이라 생각하면 되고, tag는 query시 검색 조건으로 사용하게 된다.  
+Entity를 정의하고 InfluxDBClient를 이용해서 write하면 된다. 예제에서는 POJO를 이용했는데 InfluxDB의 line protocol을 이용하거나, Data Point를 이용해 write할 수 있는데, 각자 상황에 맞게 사용하면 된다.
+
+### Query data
+TemperatureRepository class를 다음과 같이 수정해 Temperature entity에 tag로 지정한 location을 이용해 쿼리하는 기능을 만들어 보자. Query는 [InfluxQL](https://docs.influxdata.com/influxdb/v1.8/query_language/)을 이용한다.
+```java
+@Repository
+public class TemperatureRepository {
+    
+    @Value("${spring.influx2.bucket}")
+    String bucket;
+
+    @Autowired
+    private InfluxDBClient influx;
+
+    public void save(final Temperature entity) {
+        final WriteApi writeApi = influx.getWriteApi();
+        writeApi.writeMeasurement(WritePrecision.US, entity);
+    }
+
+    public void save(final List<Temperature> entities) {
+        final WriteApi writeApi = influx.getWriteApi();
+        writeApi.writeMeasurements(WritePrecision.US, entities);
+    }
+
+    public List<Temperature> findByLocation(String location) {
+        List<Temperature> entities = new ArrayList<>();
+        String query = "from(bucket:" + "\"" + bucket + "\")"
+                + "|> range(start: 0)"
+                + "|> filter(fn:(r) => r[\"_measurement\"] == " + "\"Temperature\")"
+                + "|> filter(fn:(r) => r[\"location\"] == " + "\"" + location + "\")"
+                + "|> sort(columns: [\"_time\"])";
+        final QueryApi queryApi = influx.getQueryApi();
+        final List<FluxTable> tables = queryApi.query(query);
+        for (final FluxTable fluxTable : tables) {
+            final List<FluxRecord> records = fluxTable.getRecords();
+            for (final FluxRecord fluxRecord : records) {
+                Temperature entity = new Temperature();
+                entity.setTime(fluxRecord.getTime());
+                entity.setValue(Double.parseDouble(fluxRecord.getValueByKey("_value").toString()));
+                entities.add(entity);
+            }
+        }
+        return entities;
+    }
+}
+```
+
+### Test
+```java
+class DemoApplicationTests {
+
+    @Autowired
+    TemperatureRepository temperatureRepository;
+
+    private Temperature temperatureEntity;
+    private List<Temperature> temperatureEntities;
+
+    @BeforeAll
+    public void setUp() throws Exception {
+
+        Random rand = new Random();
+        String[] location = {
+            "Seoul",
+            "Seongnam",
+            "Daegu",
+            "Gwangju",
+            "Busan"
+        };
+
+        temperatureEntity = Temperature.builder()
+                .time(Instant.now())
+                .location("Seoul")
+                .value(rand.nextDouble() * 10.0)
+                .build();
+
+        temperatureEntities = new ArrayList<>();
+        for (int i = 0; i < 100; i ++) {
+            Temperature entity = Temperature.builder()
+                    .time(Instant.now())
+                    .location(location[i % 5])
+                    .value((rand.nextDouble() + 0.001) * 100.0)
+                    .build();
+            temperatureEntities.add(entity);
+        }
+    }
+
+	@Test
+	public void saveTemperatureEntity() throws Exception {
+        temperatureRepository.save(temperatureEntity);
+        List<Temperature> entities = 
+                temperatureRepository.findByLocation(temperatureEntity.getLocation());
+        for (Temperature entity : entities) {
+            assertNotEquals(0, entity.getValue());
+        }
+    }
+
+    @Test
+	public void saveTemperatureEntities() throws Exception {
+        temperatureRepository.save(temperatureEntities);
+        List<Temperature> entities = 
+                temperatureRepository.findByLocation("Seoul");
+        for (Temperature entity : entities) {
+            assertNotEquals(0, entity.getValue());
+        }
+    }
+}
+```
+Test를 실행하고 UI를 이용해 확인해보면 데이터를 확인 할 수 있다.
+![influxdb data](/assets/img/posts/2020-08-08-spring-boot-influxdb2-data.png)
+
+UI를 통해 데이터를 시각화 하거나, InfluxQL을 쉽게 만들 수 있으니 자세히 살펴보자.
