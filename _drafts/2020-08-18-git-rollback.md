@@ -189,6 +189,13 @@ dev
 $ git reset --merge E
 $ cat test
 E
+``````bash
+$ echo A > test1
+$ git add test1
+$ git commit -m "echo A > test1"
+$ echo B > test2
+$ git add test2
+$ git commit -m "echo B > test2"
 ```
 keep모드의 경우 merge conflict를 해결 한 이후 reset을 진행해야 하는 반면, merge모드의 경우 merge conflict를 해결하지 않아도 reset을 진행할 수 있다.
 
@@ -211,5 +218,17 @@ D
 하지만 위와 같이 작업 내역을 저장하지 않고 hard모드로 reset했을 경우 E의 내용을 원복할 방법이 없다. 때문에 hard모드로 reset 전 commit, branch 또는 stash를 이용해 현재 작업 내용을 되돌릴 수 있는 안전장치를 만든 후 reset해야 할 것이다.
 
 ## revert
+revert는 명령어 수행 시 모든 히스토리를 유지하면서 revert 명령을 수행했다는 새로운 커밋이 하나 만들어진다.
+
+```bash
+$ echo A > test1
+$ git add test1
+$ git commit -m "echo A" && git tag A
+$ echo B1 > test1 && echo B2> test2
+$ git add test1 test2
+$ git commit -m "echo B"
+$ git revert A
+error
+```
 
 ## 마무리
