@@ -37,7 +37,7 @@ $ git commit -a -m "echo D" && git tag D
 ```
 
 ### soft
-현재 HEAD가 D를 가르키고 있는 상태에서 B로 reset을 진행해보자.
+현재 HEAD가 D에 있는 상태에서 B로 reset을 진행해보자.
 ```bash
 $ cat test
 D
