@@ -239,6 +239,7 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
+
 # https://github.com/jekyll/jekyll-archives
 # jekyll-archives:
 #   enabled:
@@ -268,7 +269,7 @@ defaults:
       type: posts
     values:
       layout: single
-      thumbnail: "/assets/img/thubmnail/default.jpg"
+      thumbnail: "/assets/img/thumbnail/default-thumbnail.png"
       toc: true
       toc_sticky: true
       author_profile: false
