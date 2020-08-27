@@ -10,7 +10,7 @@ thumbnail: "/assets/img/thumbnail/2020-08-18-git-rollback-thumbnail.png"
 Git을 사용하여 작업하다보면 이전 상태로 롤백하고 싶은 상황이 생기는데 reset, revert라는 명령어를 사용하여 해결할 수 있다. 두 명령어의 차이점과 사용방법에 대해 자세히 알아보자.
 
 ## reset vs revert
-아래와 같은 이력을 가지고 있을 때, 8cc79c0 커밋으로 reset, revert할 때의 차이에 대해 알아보자.
+아래와 같은 이력을 가지고 있는 상태에서 8cc79c0 커밋으로 reset, revert할 때의 차이에 대해 알아보자.
 ![초기 상태](/assets/img/posts/2020-08-18-git-rollback-init-state.png)
 
 ### reset
