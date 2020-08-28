@@ -1,5 +1,5 @@
 ---
-title: Git Rollback 방법
+title: Kubernetes pod controller
 category: 
 - DevOps
 tags:
