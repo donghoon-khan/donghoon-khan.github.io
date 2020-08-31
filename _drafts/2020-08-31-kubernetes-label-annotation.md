@@ -1,5 +1,5 @@
 ---
-title: Kubernetes single pattern
+title: Kubernetes label, annotation
 category: 
 - DevOps
 tags:
