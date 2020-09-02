@@ -1,5 +1,5 @@
 ---
-title: Kubernetes single pattern
+title: Kubernetes singleton pattern
 category: 
 - DevOps
 tags:
