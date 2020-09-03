@@ -5,7 +5,7 @@ category:
 tags:
 - kubernetes
 summary: Kubernetes Multi-Tenancy
-thumbnail: "/assets/img/thumbnail/2020-08-05-k8s-package-management-helm.png"
+thumbnail: "/assets/img/thumbnail/2020-08-31-kubernetes-multi-tenency-thumbnail.png"
 ---
 최근 KubeCon 또는 쿠버네티스 관련 자료를 찾아 보면 Multi-Tenancy를 주제로 많이 다루고 있다. 쿠버네티스를 여러 Tenant들이 함께 사용가능하게끔 제공하고 운영하는 것은 어려운 일이다. security, resource isolation 등의 이유로 대부분이 팀, 프로젝트 또는 환경 별로 쿠버네티스 클러스터를 만들어서 사용하고 있다고 한다.  
 Kubernetes에서 multi-tenancy를 제공하는 방법에 대해 알아보자.
