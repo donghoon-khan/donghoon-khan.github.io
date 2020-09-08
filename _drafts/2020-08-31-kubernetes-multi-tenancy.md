@@ -32,3 +32,4 @@ Kubernetes에서 multi-tenancy를 제공하는 방법에 대해 알아보자.
 - [https://www.replex.io/blog/kubernetes-in-production-best-practices-and-checklist-for-multi-tenancy](https://www.replex.io/blog/kubernetes-in-production-best-practices-and-checklist-for-multi-tenancy)
 - [Multi-Tenancy in Kubernetes: Best Practices Today, and Future Directions - David Oppenheimer](https://www.youtube.com/watch?v=xygE8DbwJ7c)
 - [https://www.cncf.io/webinars/things-to-consider-to-operate-a-multi-tenant-kubernetes-cluster-multi-tenant-kubernetes-cluster](https://www.cncf.io/webinars/things-to-consider-to-operate-a-multi-tenant-kubernetes-cluster-multi-tenant-kubernetes-cluster%eb%a5%bc-%ec%9a%b4%ec%98%81%ed%95%98%ea%b8%b0-%ec%9c%84%ed%95%b4-%ea%b3%a0%eb%a0%a4%ed%95%a0/)
+- [https://www.infoq.com/presentations/multi-tenancy-kubernetes/](https://www.infoq.com/presentations/multi-tenancy-kubernetes/)
