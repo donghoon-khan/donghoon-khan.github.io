@@ -21,11 +21,13 @@ thumbnail: "/assets/img/thumbnail/2020-08-31-kubernetes-multi-tenency-thumbnail.
 - `Hard multi-tenancy model`: 하드 멀티 테넌시 모델은 테넌트들이 악의적인 행동을 할 수 있다고 가정하는 모델이다. 때문에 테넌트들 사이의 신뢰가 존재하지 않는다고 가정한다. 테넌트들의 자원은 격리되고 다른 테넌트와의 접근을 허용하지 않는다. 클러스터는 테넌트들의 자원을 격리하고 다른 테넌트와의 접근을 차단하는 방식으로 구성되어야 한다. (Ex. 테넌트들이 독립적인 서로 다른 회사일 경우)
 
 # Namespace Per Tenant
-테넌트마다 별도의 Namespace를 가지는 구조에 대해 알아보자. 
-
+테넌트마다 별도의 Namespace를 가지는 구조에 대해 알아보자.
+![kubernetes namespace per tenant](/assets/img/posts/2020-08-31-kubernetes-multi-tenancy(1).png){:height="50%" width="50%"}
 # Nodes Per Tenant
+![kubernetes namespace per tenant](/assets/img/posts/2020-08-31-kubernetes-multi-tenancy(2).png)
 
 # Cluster Per Tenant
+![kubernetes namespace per tenant](/assets/img/posts/2020-08-31-kubernetes-multi-tenancy(3).png)
 
 # Reference
 - [kubernetes-sigs - Kubernetes Working Group for Multi-Tenancy](https://github.com/kubernetes-sigs/multi-tenancy)
