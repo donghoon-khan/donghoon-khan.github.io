@@ -1,7 +1,7 @@
 ---
 title: Git Rollback(reset, revert)
 category: 
-- DevOps
+- WEB
 tags:
 - git
 summary: How to reset, revert, and return to previous states in Git
