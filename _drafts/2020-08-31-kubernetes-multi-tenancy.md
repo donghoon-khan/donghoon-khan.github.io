@@ -5,7 +5,7 @@ category:
 tags:
 - kubernetes
 summary: Kubernetes Multi-Tenancy
-thumbnail: "/assets/img/thumbnail/2020-08-31-kubernetes-multi-tenency-thumbnail.png"
+thumbnail: "/assets/img/thumbnail/kubernetes.png"
 ---
 쿠버네티스 환경을 여러 Tenant들이 사용하게끔 하기 위해선 어떻게 해야 할까? 이와 관련되어 최근 CNCF or 쿠버네티스 관련 자료를 찾아 보면 많은 곳에서 Multi-Tenancy를 주제로 다루고 있다. Multi-Tenancy 환경에서는 Single-Tenant에서는 고려하지 않아도 되는 Security, Resource isolation 등의 문제들이 발생한다.  
 대부분의 팀, 프로젝트 또는 환경 별로 쿠버네티스 클러스터를 만들어서 사용하고 있다고 한다. 가장 Simple하게 Multi-Tenancy 환경을 구성할 수 있으며 Security, Resource isolation과 같은 문제를 쉽게 해결할 수 있다. 하지만 낮은 Resource utilization을 가질 수 밖에 없다.  

@@ -5,7 +5,7 @@ category:
 tags:
 - kubernetes
 summary: Creating higily available kubernetes cluster with haproxy and keepalived
-thumbnail: "/assets/img/thumbnail/2020-08-10-creating-ha-k8s-cluster-thumbnail.png"
+thumbnail: "/assets/img/thumbnail/kubernetes.png"
 ---
 쿠버네티스 클러스터는 `마스터`와 `노드`로 구성된다.
 * `마스터` - 클러스터 상태를 관리하는 프로세스의 묶음(kube-apiserver, kube-controller-manager, kube-scheduler)으로 노드를 관리하고, 클러스터의 상태를 유지할 책임을 진다.

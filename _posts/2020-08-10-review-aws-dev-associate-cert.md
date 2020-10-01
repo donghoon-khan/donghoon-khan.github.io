@@ -5,7 +5,7 @@ category:
 tags:
 - aws
 summary: Review AWS Certified Developer - Associate Certification
-thumbnail: /assets/img/thumbnail/2020-08-10-review-aws-dev-associate-cert-thumbnail.png
+thumbnail: /assets/img/thumbnail/aws.png
 ---
 회사에서 진행하는 프로젝트 덕분에 약 1년간 AWS를 접할 기회가 있었다. 주로 EKS를 구축하고 사용하는 과정에서 IAM이나 EC2, LB, EBS등을 접할 수 있었다. 말 그대로 접해본 수준이지 깊은 지식이 있던 상태가 아니었는데, DevOps에 흥미가 생기면서 클라우드를 제대로 공부해보자라는 생각이 들었다. 이후 관련 자격을 알아보던 중 `AWS Developer Associate` 자격이 눈에 들어왔고 취득하기로 마음 먹었다. 약 한달정도 공부 후 합격 했는데 간단한 후기를 적어보자.
 

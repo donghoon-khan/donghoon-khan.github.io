@@ -5,7 +5,7 @@ category:
 tags:
 - git
 summary: How to reset, revert, and return to previous states in Git
-thumbnail: "/assets/img/thumbnail/2020-08-18-git-rollback-thumbnail.png"
+thumbnail: "/assets/img/thumbnail/git.png"
 ---
 Git을 사용하여 작업하다보면 이전 상태로 롤백하고 싶은 상황이 생기는데 reset, revert라는 명령어를 사용하여 해결할 수 있다. 두 명령어의 차이점과 사용방법에 대해 자세히 알아보자.
 
