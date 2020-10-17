@@ -1,9 +1,9 @@
 ---
-title: Git Rollback(reset, revert)
+title: WebRTC가 뭔데?
 category: 
 - WEB
 tags:
-- git
-summary: How to reset, revert, and return to previous states in Git
+- webrtc
+summary: What is WebRTC?
 thumbnail: "/assets/img/thumbnail/kubernetes.png"
 ---
