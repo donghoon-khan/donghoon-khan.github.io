@@ -1,5 +1,5 @@
 ---
-title: WebRTC가 뭔데?
+title: WebRTC란?
 category: 
 - WEB
 tags:
