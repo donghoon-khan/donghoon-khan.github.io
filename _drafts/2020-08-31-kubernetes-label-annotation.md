@@ -1,9 +1,9 @@
 ---
-title: Terraform으로 시작하는 IaC
+title: Kubernetes label, annotation
 category: 
 - DevOps
 tags:
-- terraform
+- kubernetes
 summary: Introduction to Terraform
 thumbnail: "/assets/img/thumbnail/kubernetes.png"
 ---

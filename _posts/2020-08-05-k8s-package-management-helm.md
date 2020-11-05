@@ -6,7 +6,7 @@ tags:
 - helm
 - kubernetes
 summary: Introduction to Helm - Package Manager for Kubernetes
-thumbnail: "/assets/img/thumbnail/2020-08-05-k8s-package-management-helm.png"
+thumbnail: "/assets/img/thumbnail/helm.png"
 ---
 
 [Helm](https://helm.sh/)은 쿠버네티스용 패키지 매니지먼트 도구로 쿠버네티스용 apt dpkg, yum rpm, homebrew라고 생각하면 된다. Helm은 패키지 매니지먼트 도구 답게 설치, 업그레이드, 롤백, 삭제 등 강력하고 다양한 기능을 제공한다.  
