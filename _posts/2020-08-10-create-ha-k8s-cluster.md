@@ -14,10 +14,9 @@ thumbnail: "/assets/img/thumbnail/kubernetes.png"
 사용자는 마스터 내의 API Server로 원하는 상태(컨테이너 이미지, 레플리카 수, 네트워크, 디스크 등)를 요청하고, 마스터는 노드와 통신하면서 클러스터를 사용자가 원하는 상태로 관리한다. 사용자는 노드와 직접 인터페이스 할 일은 거의 없고, kubectl 또는 쿠버네티스 API를 이용해 API Server와 인터페이스 하게 된다. 클러스터를 관리하는 마스터가 shuwdown 된다면 쿠버네티스 클러스터 전체가 마비되기에 마스터의 HA는 필수이다.  
 AWS-EKS, GCP-GKE 등 클라우드 서비스를 이용한다면, 클라우드 프로바이더가 마스터의 HA를 제공하므로 사용자가 HA를 고민하지 않아도 된다. 하지만 On-premise 환경에서 쿠버네티스 클러스터를 구축한다면 HA를 고려하여 구축해야 한다. HA Proxy + Keppalived + Kubernetes 조합으로 3개의 마스터와 3개의 노드를 가지는 고가용성 쿠버네티스 클러스터를 구축해보자.
 
----
-**NOTE**
-
-마스터의 수는 1,3,5,7과 같이 홀수개를 유지하는 것이 좋다. [참고](https://stackoverflow.com/questions/53843195/why-kubernetes-ha-need-odd-number-of-master)
+ **NOTE:**  
+ 마스터의 수는 1,3,5,7과 같이 홀수개를 유지하는 것이 좋다. [참고](https://stackoverflow.com/questions/53843195/why-kubernetes-ha-need-odd-number-of-master)
+{: .notice--info}
 
 ---
 
