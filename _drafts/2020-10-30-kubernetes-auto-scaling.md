@@ -36,10 +36,152 @@ apiservice.apiregistration.k8s.io/v1beta1.metrics.k8s.io created
 
 ![HPA-workflow](https://github.com/donghoon-khan/drawIO/blob/master/app/k8s-autoscaling-workflow/HPA-workflow.png?raw=true)
 
-## 수직형 Pod 자동 확장
-쿠버네티스 [VPA(Vertical Pod Autoscaler)](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler)는 pod에 대한 CPU or Memory를 자동으로 조정하여 애플리케이션의 리소스를 `적절히 조정`할 수 있게 지원한다.
+HPA는 metric(CPU, Memory, custom metric)을 관찰하여 RC, Deployment, RS, StatefulSet의 파드 개수를 `Scale Up` 또는 `Scale Down`한다. 요구하는 metric에 비해 실행되고 있는 파드의 수가 작다면 파드의 수를 늘리고(Scale Up), 반대의 경우 파드의 수를 줄인다(Scale Down). DaemonSet과 같이 크기를 조정할 수 없는 경우에는 적용되지 않는다.  
+다음과 같이 작성된 CPU에 부하를 주는 애플리케이션으로 HPA를 테스트 해보자. k8s.gcr.io에 빌드 된 이미지가 있기에 따로 빌드하거나 푸쉬할 필요는 없다.
+
+*index.php*
+```php
+<?php
+  $x = 0.0001;
+  for ($i = 0; $i <= 1000000; $i++) {
+    $x += sqrt($x);
+  }
+  echo "OK!";
+?>
+```
+
+*Dockerfile*
+```dockerfile
+FROM php:5-apache
+COPY index.php /var/www/html/index.php
+RUN chmod a+rx index.php
+```
+
+위 애플리케이션을 쿠버네티스 클러스터에 배포한다.
+```bash
+$ cat << EOF > hpa-application.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-apache
+spec:
+  selector:
+    matchLabels:
+      run: php-apache
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: php-apache
+    spec:
+      containers:
+      - name: php-apache
+        image: k8s.gcr.io/hpa-example
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-apache
+  labels:
+    run: php-apache
+spec:
+  ports:
+  - port: 80
+  selector:
+    run: php-apache
+EOF
+
+$ kubectl apply -f hpa-application.yaml
+deployment.apps/php-apache created
+service/php-apache created
+```
+
+CPU 사용량을 기준으로 Scale Up/Down을 하게끔 HPA를 생성해보자.
+```bash
+$ cat << EOF > hpa.yaml
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: php-apache
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+EOF
+
+$ kubectl apply -f hpa.yaml
+horizontalpodautoscaler.autoscaling/php-apache created
+
+$ kubectl top pod
+NAME                          CPU(cores)   MEMORY(bytes)   
+php-apache-79544c9bd9-gqpbj   1m           9Mi             
+
+$ kubectl get hpa
+NAME         REFERENCE               TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache   0%/80%   1         10        0          60s
+```
+
+애플리케이션에 부하를 증가시키는 컨테이너를 배포해서 HPA를 테스트 해보자.
+```bash
+$ kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
+
+$ kubectl get hpa
+NAME         REFERENCE               TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache   72%/80%   1         10        4          5m
+
+$ kubectl top pod
+NAME                          CPU(cores)   MEMORY(bytes)   
+load-generator                5m           0Mi             
+php-apache-79544c9bd9-9dshs   174m         14Mi            
+php-apache-79544c9bd9-gqpbj   206m         12Mi            
+php-apache-79544c9bd9-w4h7c   71m          14Mi            
+php-apache-79544c9bd9-wjhd2   90m          12Mi
+
+$ kubectl get deployment
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   4/4     4            4           16m
+```
+
+HPA 설정에서 scaleTargetRef로 지정한 php-apache deployment의 targetCPUUtilizationPercentage를 80%이하로 유지하기 위해 Scale Up하는 것을 확인할 수 있다. 이제 load-generator를 삭제해보자.
+```bash
+$ kubectl delete pod load-generator
+pod "load-generator" deleted
+
+$ kubectl get hpa
+NAME         REFERENCE               TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+php-apache   Deployment/php-apache   0%/80%    1         10        1          56m
+
+$ kubectl top pod
+NAME                          CPU(cores)   MEMORY(bytes)   
+php-apache-79544c9bd9-gqpbj   1m           12Mi
+
+$ kubectl get deployment
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+php-apache   1/1     1            1           63m
+```
+
+부하가 줄어들면서 HPA가 파드의 레플리카를 줄이는 모습을 확인할 수 있다.
+
+ **NOTE:**  
+ 레플리카의 수는 다음 식에 의해 결정된다.  
+ desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricValue )]
+{: .notice--info}
+
+## 수직형 Pod 자동 확장(Vertical Pod Autoscaler)
+쿠버네티스 [VPA](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler)는 pod에 대한 CPU or Memory를 자동으로 조정하여 애플리케이션의 리소스를 `적절히 조정`할 수 있게 지원한다.
 
 ![VPA-workflow](https://github.com/donghoon-khan/drawIO/blob/master/app/k8s-autoscaling-workflow/VPA-workflow.png?raw=true)
-
 
 ## 클러스터 자동 확장(Cluster Autoscaler)
