@@ -231,9 +231,32 @@ VPA 관련 파드가 정상적으로 배포된 것을 확인할 수 있다. HPA 
 
 $ kubectl get pod
 NAME                          READY   STATUS    RESTARTS   AGE
-php-apache-79b85969bb-pndjb   1/1     Running   0          4s
-php-apache-79b85969bb-x4jgg   1/1     Running   0          4s
+php-apache-79b85969bb-676jp   1/1     Running   0          31s
+php-apache-79b85969bb-gs5md   1/1     Running   0          31s
 
+$ kubectl describe pod php-apache-79b85969bb-gs5md
+...
+Containers:
+  php-apache:
+    Container ID:   docker://b733c97425da680120a719e629c7364078e9f86228f3de28b99496b79bf6980f
+    Image:          k8s.gcr.io/hpa-example
+    Image ID:       docker-pullable://k8s.gcr.io/hpa-example@sha256:581697a37f0e136db86d6b30392f0db40ce99c8248a7044c770012f4e8491544
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 18 Nov 2020 14:18:37 +0900
+    Ready:          True
+    Restart Count:  0
+    Requests:
+      cpu:        200m
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-vv7bl (ro)
+...
+```
+
+VPA를 설정하고 애플리케이션에 부하를 증가시켜보자.
+```bash
 $ cat << EOF > vpa.yaml
 apiVersion: "autoscaling.k8s.io/v1"
 kind: VerticalPodAutoscaler
@@ -262,6 +285,56 @@ verticalpodautoscaler.autoscaling.k8s.io/php-apache created
 $ kubectl get vpa
 NAME         AGE
 php-apache   16s
+
+$ kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
+
+$ kubectl get --watch pod
+NAME                          READY   STATUS    RESTARTS   AGE
+load-generator                1/1     Running   0          5s
+php-apache-79b85969bb-676jp   1/1     Running   0          2m57s
+php-apache-79b85969bb-gs5md   1/1     Running   0          2m57s
+php-apache-79b85969bb-gs5md   1/1     Terminating   0          3m49s
+php-apache-79b85969bb-n5wcm   0/1     Pending       0          0s
+php-apache-79b85969bb-n5wcm   0/1     Pending       0          0s
+php-apache-79b85969bb-n5wcm   0/1     ContainerCreating   0          0s
+php-apache-79b85969bb-gs5md   0/1     Terminating         0          3m51s
+php-apache-79b85969bb-gs5md   0/1     Terminating         0          3m52s
+php-apache-79b85969bb-gs5md   0/1     Terminating         0          3m52s
+php-apache-79b85969bb-n5wcm   1/1     Running             0          3s
+php-apache-79b85969bb-676jp   1/1     Terminating         0          4m49s
+php-apache-79b85969bb-p74nt   0/1     Pending             0          0s
+php-apache-79b85969bb-p74nt   0/1     Pending             0          0s
+php-apache-79b85969bb-p74nt   0/1     ContainerCreating   0          0s
+php-apache-79b85969bb-676jp   0/1     Terminating         0          4m51s
+php-apache-79b85969bb-p74nt   1/1     Running             0          4s
+php-apache-79b85969bb-676jp   0/1     Terminating         0          4m57s
+php-apache-79b85969bb-676jp   0/1     Terminating         0          4m57s
+
+$ kubectl describe pod php-apache-79b85969bb-n5wcm
+...
+Containers:
+  php-apache:
+    Container ID:   docker://4bab2fc008b7ed0f62c50662580615627b496f0edb6da6d6dacc073058992974
+    Image:          k8s.gcr.io/hpa-example
+    Image ID:       docker-pullable://k8s.gcr.io/hpa-example@sha256:581697a37f0e136db86d6b30392f0db40ce99c8248a7044c770012f4e8491544
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 18 Nov 2020 14:22:26 +0900
+    Ready:          True
+    Restart Count:  0
+    Requests:
+      cpu:        296m
+      memory:     262144k
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-vv7bl (ro)
+...
 ```
+배포한 애플리케이션이 재시작하면서 리소스 요청값이 증가한 것을 확인할 수 있다. 파드의 리소스가 부족하므로 VPA가 원래 요청한 리소스 보다 더 적절한 값으로 수정한 것을 확인할 수 있다.
 
 ## 클러스터 자동 확장(Cluster Autoscaler)
+
+## 참고자료
+[Kubernetes Autoscaling 101: Cluster Autoscaler, Horizontal Pod Autoscaler, and Vertical Pod Autoscaler](https://levelup.gitconnected.com/kubernetes-autoscaling-101-cluster-autoscaler-horizontal-pod-autoscaler-and-vertical-pod-2a441d9ad231)  
+[Kubernetes.io: Horizontal Pod Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
