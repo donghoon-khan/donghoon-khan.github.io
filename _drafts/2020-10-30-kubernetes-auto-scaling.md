@@ -334,7 +334,11 @@ Containers:
 배포한 애플리케이션이 재시작하면서 리소스 요청값이 증가한 것을 확인할 수 있다. 파드의 리소스가 부족하므로 VPA가 원래 요청한 리소스 보다 더 적절한 값으로 수정한 것을 확인할 수 있다.
 
 ## 클러스터 자동 확장(Cluster Autoscaler)
+![CA-workflow](https://github.com/donghoon-khan/drawIO/blob/master/app/k8s-autoscaling-workflow/CA-workflow.png?raw=true)
+
+CA는 리소스가 부족해서 Pending 상태에 있는 파드를 감지해서 클러스터에 노드를 추가하고 충분할 경우 노드를 삭제하는 방식이다. 이 때 클라우드 프로바이더에게 노드를 추가하고 삭제하는 요청을 하게 되는데, 사용 중인 클라우드 별로 설정이 다르므로 [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)을 참고해서 설정하도록 하자.
 
 ## 참고자료
-[Kubernetes Autoscaling 101: Cluster Autoscaler, Horizontal Pod Autoscaler, and Vertical Pod Autoscaler](https://levelup.gitconnected.com/kubernetes-autoscaling-101-cluster-autoscaler-horizontal-pod-autoscaler-and-vertical-pod-2a441d9ad231)  
-[Kubernetes.io: Horizontal Pod Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
+[https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)  
+[https://github.com/kubernetes/autoscaler](https://github.com/kubernetes/autoscaler)  
+[https://levelup.gitconnected.com/kubernetes-autoscaling-101-cluster-autoscaler-horizontal-pod-autoscaler-and-vertical-pod-2a441d9ad231](https://levelup.gitconnected.com/kubernetes-autoscaling-101-cluster-autoscaler-horizontal-pod-autoscaler-and-vertical-pod-2a441d9ad231)
