@@ -1,10 +1,10 @@
 ---
-title: What is Tyke?
+title: What is Istio?
 category: 
 - WEB
 tags:
-- Go
-- Tyke
-summary: Detail of Tyke
+- Kubernetes
+- Istio
+summary: Detail of Istio
 thumbnail: "/assets/img/thumbnail/kubernetes.png"
 ---
