@@ -4,6 +4,6 @@ category:
 - DevOps
 tags:
 - kubernetes
-summary: Introduction to Terraform
+summary: 
 thumbnail: "/assets/img/thumbnail/kubernetes.png"
 ---
