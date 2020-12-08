@@ -4,6 +4,6 @@ category:
 - DevOps
 tags:
 - kubernetes
-summary: 
+summary: Kubernetes singleton pattern
 thumbnail: "/assets/img/thumbnail/kubernetes.png"
 ---
