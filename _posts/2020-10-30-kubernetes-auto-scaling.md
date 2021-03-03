@@ -19,6 +19,7 @@ metircs-server와 autoscaler는 kube-apiserver의 resource API를 이용해 metr
 {: .notice--info}
 
 metrics-server는 kubectl을 이용해 간단하게 설치가 가능하다.
+
 ```bash
 $ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 serviceaccount/metrics-server created
@@ -33,12 +34,14 @@ apiservice.apiregistration.k8s.io/v1beta1.metrics.k8s.io created
 ```
 
 ## 수평형 Pod 자동 확장(Horizontal Pod Autoscaler)
+
 ![HPA-workflow](https://github.com/donghoon-khan/drawIO/blob/master/app/k8s-autoscaling-workflow/HPA-workflow.png?raw=true)
 
 HPA는 metric(CPU, Memory, custom metric)을 관찰하여 RC, Deployment, RS, StatefulSet의 파드 개수를 `Scale Up` 또는 `Scale Down`한다. 요구하는 metric에 비해 실행되고 있는 파드의 수가 작다면 파드의 수를 늘리고(Scale Up), 반대의 경우 파드의 수를 줄인다(Scale Down). DaemonSet과 같이 크기를 조정할 수 없는 경우에는 적용되지 않는다.  
-다음과 같이 작성된 CPU에 부하를 주는 애플리케이션으로 HPA를 테스트 해보자. 
+다음과 같이 작성된 CPU에 부하를 주는 애플리케이션으로 HPA를 테스트 해보자.
 
-*index.php*
+**index.php**를 다음과 같이 작성하자.
+
 ```php
 <?php
   $x = 0.0001;
@@ -49,7 +52,8 @@ HPA는 metric(CPU, Memory, custom metric)을 관찰하여 RC, Deployment, RS, St
 ?>
 ```
 
-*Dockerfile*
+**Dockerfile**을 다음과 같이 작성하자.
+
 ```dockerfile
 FROM php:5-apache
 COPY index.php /var/www/html/index.php
@@ -57,6 +61,7 @@ RUN chmod a+rx index.php
 ```
 
 k8s.gcr.io에 빌드 된 이미지가 있기에 따로 빌드하거나 푸쉬할 필요는 없다. 위 애플리케이션을 쿠버네티스 클러스터에 배포한다.
+
 ```bash
 $ cat << EOF > application.yaml
 apiVersion: apps/v1
@@ -102,6 +107,7 @@ service/php-apache created
 ```
 
 CPU 사용량을 기준으로 Scale Up/Down을 하게끔 HPA를 생성해보자.
+
 ```bash
 $ cat << EOF > hpa.yaml
 apiVersion: autoscaling/v1
@@ -143,6 +149,7 @@ php-apache   Deployment/php-apache   0%/80%    1         10        2          20
 ```
 
 애플리케이션에 부하를 증가시키는 컨테이너를 배포해서 HPA를 테스트 해보자.
+
 ```bash
 $ kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://php-apache; done"
 
@@ -169,6 +176,7 @@ php-apache   6/6     6            6           4m37s
 ```
 
 HPA 설정에서 scaleTargetRef로 지정한 php-apache deployment의 targetCPUUtilizationPercentage를 80%이하로 유지하기 위해 Scale Up하는 것을 확인할 수 있다. 이제 load-generator를 삭제하고 Scale Down이 되는지 확인해 보자.
+
 ```bash
 $ kubectl delete pod load-generator
 pod "load-generator" deleted
@@ -206,6 +214,7 @@ Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavai
 {: .notice--info}
 
 ## 수직형 Pod 자동 확장(Vertical Pod Autoscaler)
+
 ![VPA-workflow](https://github.com/donghoon-khan/drawIO/blob/master/app/k8s-autoscaling-workflow/VPA-workflow.png?raw=true)
 
 HPA가 파드의 수를 늘리거나 줄여서 스케일링 했다면, VPA는 파드의 요청 리소스를 늘리거나 줄여서 스케일링 하는 방식이다. 파드에 할당된 리소스는 실행 중에 다시 할당할 수 없기에 VPA는 스케일링 시 파드를 재시작하게 된다. VPA는 현재 베타단계이므로 VPA를 클러스터에 인스톨 한 후 진행해야 하며
@@ -256,6 +265,7 @@ Containers:
 ```
 
 VPA를 설정하고 애플리케이션에 부하를 증가시켜보자.
+
 ```bash
 $ cat << EOF > vpa.yaml
 apiVersion: "autoscaling.k8s.io/v1"
@@ -331,14 +341,17 @@ Containers:
       /var/run/secrets/kubernetes.io/serviceaccount from default-token-vv7bl (ro)
 ...
 ```
+
 배포한 애플리케이션이 재시작하면서 리소스 요청값이 증가한 것을 확인할 수 있다. 파드의 리소스가 부족하므로 VPA가 원래 요청한 리소스 보다 더 적절한 값으로 수정한 것을 확인할 수 있다.
 
 ## 클러스터 자동 확장(Cluster Autoscaler)
+
 ![CA-workflow](https://github.com/donghoon-khan/drawIO/blob/master/app/k8s-autoscaling-workflow/CA-workflow.png?raw=true)
 
 CA는 리소스가 부족해서 Pending 상태에 있는 파드를 감지해서 클러스터에 노드를 추가하고 충분할 경우 노드를 삭제하는 방식이다. 이 때 클라우드 프로바이더에게 노드를 추가하고 삭제하는 요청을 하게 되는데, 사용 중인 클라우드 별로 설정이 다르므로 [Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)을 참고해서 설정하도록 하자.
 
 ## 참고자료
+
 [https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)  
 [https://github.com/kubernetes/autoscaler](https://github.com/kubernetes/autoscaler)  
 [https://levelup.gitconnected.com/kubernetes-autoscaling-101-cluster-autoscaler-horizontal-pod-autoscaler-and-vertical-pod-2a441d9ad231](https://levelup.gitconnected.com/kubernetes-autoscaling-101-cluster-autoscaler-horizontal-pod-autoscaler-and-vertical-pod-2a441d9ad231)

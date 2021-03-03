@@ -8,6 +8,7 @@ summary: Creating higily available kubernetes cluster with haproxy and keepalive
 thumbnail: "/assets/img/thumbnail/kubernetes.png"
 ---
 쿠버네티스 클러스터는 `마스터`와 `노드`로 구성된다.
+
 * `마스터` - 클러스터 상태를 관리하는 프로세스의 묶음(kube-apiserver, kube-controller-manager, kube-scheduler)으로 노드를 관리하고, 클러스터의 상태를 유지할 책임을 진다.
 * `노드` - 애플리케이션과 워크플로우를 구동시키는 머신(VM, 물리 서버 등)이며, 마스터와 통신하는 kubelet, 네트워킹 서비스를 반영하는 kube-proxy 프로세스로 구성된다.
 
@@ -21,6 +22,7 @@ AWS-EKS, GCP-GKE 등 클라우드 서비스를 이용한다면, 클라우드 프
 ---
 
 ## Prerequisite
+
 * 6대의 물리머신 또는 가상머신 (Ubuntu 18.04)
 * Master1 - 192.168.0.3
 * Master2 - 192.168.0.4
@@ -31,15 +33,16 @@ AWS-EKS, GCP-GKE 등 클라우드 서비스를 이용한다면, 클라우드 프
 * 쿠버네티스 클러스터의 엔드포인트로 사용할 가상 IP - 192.168.0.244
 
 ## 필요 패키지 설치
+
 HA Proxy, Keepalived, docker, kubelet 등 필요 패키지를 설치하자.
 
 ### HAProxy, Keepalived 설치/설정(All Masters)
+
 ```bash
 $ apt-get install keepalived haproxy
-```
-```bash
 $ sudo vi /etc/keepalived/keepalived.conf
 ```
+
 ```bash
 vrrp_instance VI_1 {
     state MASTER
@@ -56,9 +59,11 @@ vrrp_instance VI_1 {
     }
 }
 ```
+
 ```bash
 $ sudo vi /etc/haproxy/haproxy.cfg
 ```
+
 ```bash
 global
 ...
@@ -84,10 +89,12 @@ backend k8s-api
   server master2 ${Master2_ip}:6443 check
   server master3 ${Master3_ip}:6443 check
 ```
+
 * [설정 참고](https://github.com/donghoon-khan/kubernetes-demo/tree/master/cluster/on-premise)
 
 ### Docker, Kubernetes 설치(All Masters, All Nodes)
-```bash 
+
+```bash
 $ sudo apt-get remove docker docker-engine docker.io containerd runc
 $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 $ sudo apt-key fingerprint 0EBFCD88
@@ -108,12 +115,15 @@ $ sudo apt-get install docker-ce docker-ce-cli containerd.io
 $ sudo apt-get install kubeadm kubelet kubectl
 $ sudo apt-mark hold kubeadm kubelet kubectl docker-ce docker-ce-cli containerd.io
 ```
+
 * [설치 스크립트 참고](https://github.com/dhkang22/kubernetes-cluster/blob/master/on-premise/setup.sh)
 
 ## Kubernetes 클러스터 생성
+
 이제 쿠버네티스 클러스터를 생성하고 Master와 Node를 Join하면 된다.
 
 ### All Masters
+
 ```bash
 $ sudo swapoff -a
 $ vi /etc/ssh/sshd_config #PermitRootLogint yes
@@ -122,11 +132,13 @@ $ sudo systemctl stop haproxy
 ```
 
 ### Master1
+
 ```bash
 $ sudo systemctl start keepalived
 $ sudo systemctl enable keepalived
 $ vi kubeadm-config.yaml
 ```
+
 ``` bash
 apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
@@ -139,9 +151,11 @@ networking:
   podSubnet: ${cidr} #10.244.0.0/16 (flannel)
 controlPlaneEndpoint: "{$vip}"
 ```
+
 ```bash
 $ vi deploy_certs_conf.sh
 ```
+
 ```bash
 #!/bin/bash
 set -e
@@ -159,6 +173,7 @@ done
  
 exit $EXITCODE
 ```
+
 ```bash
 $ kubeadm init --config=kubeadm-config.yaml #Token, hash 값 저장
 $ chmod +x deploy_certs_conf.sh
@@ -166,16 +181,19 @@ $ bash deploy_certs_conf.sh
 ```
 
 ### Master2, Master3
+
 ``` bash
 $ kubeadm join ${vip}:6443 --token ${token} --discovery-token-ca-cert-hash ${hash} --experimental-control-plane
 ```
 
 ### All Nodes
+
 ``` bash
 $ kubeadm join ${vip}:6443 --token ${token} --discovery-token-ca-cert-hash ${hash}
 ```
 
 ### All Masters
+
 ``` bash
 $ mkdir -p $HOME/.kube
 $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -186,6 +204,7 @@ $ sudo systemctl start keepalived
 ```
 
 ### Master1
+
 ```bash
 $ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 $ kubectl get nodes
@@ -193,11 +212,13 @@ $ kubectl get pod --all-namespaces
 ```
 
 ### All Master
+
 ``` bash
 $ sudo systemctl start haproxy
 ```
 
 ## Conclusion
+
 모든 단계를 마치면 아래의 그림과 같은 구성을 가지게 된다.
 ![on-premise ha kubernetes cluster](/assets/img/posts/2020-08-10-block-diagram.png)  
 
