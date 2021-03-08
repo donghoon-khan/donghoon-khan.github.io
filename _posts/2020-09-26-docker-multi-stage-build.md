@@ -7,7 +7,7 @@ tags:
 summary: Docker multi stage build
 thumbnail: "/assets/img/thumbnail/docker.png"
 ---
-Docker 컨테이너의 이미지를 만들 때 사이즈를 경량화 하는 것은 매우 중요하다. 
+Docker 컨테이너의 이미지를 만들 때 사이즈를 경량화 하는 것은 매우 중요하다.  
 Docker 이미지의 크기가 GB 단위 이거나, 부팅하는데 많은 시간이 걸린다면 Dockerized를 해서 얻는 이점이 많이 줄어들기 때문이다.
 때문에 많은 사람들이 이미지의 사이즈를 줄이기 위해 Ubuntu가 아닌 alpine과 같은 작은 사이즈의 이미지를 base image로 사용하고 있다.  
 Docker 17.05 이상의 버전부터는 multi-stage 빌드를 이용하여 컨테이너 이미지의 사이즈를 더욱 경량화 시킬 수 있다.
@@ -57,6 +57,7 @@ total 2.0M
 이제 빌드와 같이 Dockerize할 때에는 필요하지만 애플리케이션의 실행에는 필요없는 부분을 최종 이미지에서 제외하여 경량화된 이미지를 만드는 방법에 대해 알아보자.
 
 ## Unused multi-stage builds
+
 Multi-stage를 사용하지 않고도 최종 이미지를 경량화 할 수 있다. 
 빌드 이미지에서는 빌드만을 수행하고 빌드의 결과물을 로컬파일시스템으로 가져온다.
 그리고 최종 이미지에에는 애플리케이션 실행에 필요한 것들만 카피하여 실행하면 된다.
@@ -107,6 +108,7 @@ donghoon-khan/multi-stage   release             24dfa47c06aa        12 seconds a
 뿐만 아니라, 빌드 스크립트 역시 관리가 필요하다.
 
 ## Use multi-stage builds
+
 Multi-stage 빌드는 여러개의 FROM문을 사용해 stage를 구분하고 한 stage에서 다른 stage로 아티팩트를 선택적으로 복사하여 최종 이미지에서 원하지 않는 것들을 제외하는 방식이다.
 앞에서 사용한 애플리케이션을 multi-stage 빌드를 사용하여 빌드해보자.
 
@@ -128,6 +130,7 @@ $ docker images
 REPOSITORY                  TAG                 IMAGE ID            CREATED             SIZE
 donghoon-khan/multi-stage   release             0482a0eb2ecb        11 minutes ago      7.21MB
 ```
+
 Dockerfile을 보면 여러 FROM이 등장하는 것을 볼 수 있다.
 처음 FROM에서 `AS` 키워드를 이용해 `build`라는 별칭을 부여하고, `--from=build`을 통해 빌드 스테이지의 아티팩트를 최종 릴리즈 이미지에 복사하였다.
 따로 별칭을 추가하지 않아도 `--from=0`와 같은 방법으로 이전 스테이지의 아티팩트를 참조할 수 있으며, `COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf`와 같이 외부 이미지애서의 참조도 가능하다.
