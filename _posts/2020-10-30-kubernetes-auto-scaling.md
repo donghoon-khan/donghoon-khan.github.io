@@ -3,7 +3,7 @@ title: Kubernetes auto scaling
 category: 
 - DevOps
 tags:
-- kuberntes
+- kubernetes
 summary: kubernetes auto scaling
 thumbnail: "/assets/img/thumbnail/kubernetes.png"
 ---
