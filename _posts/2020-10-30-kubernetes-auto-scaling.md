@@ -13,9 +13,7 @@ tags:
 prometheus + kube-apiserver의 custom API, external API와 같은 방식으로 커스텀 및 외부 측정항목으로도 HPA, VPA 구축이 가능하지만 이 글에서는 [metrics-server](https://github.com/kubernetes-sigs/metrics-server)를 이용하여 CPU, memory에 대한 metrics를 수집하여 HPA, VPA를 구축할 것이다.
 metircs-server와 autoscaler는 kube-apiserver의 resource API를 이용해 metric을 주고 받는다. 
 
- **NOTE:**  
- kubectl top 명령어를 이용해 node or pod의 리소스 사용량을 확인 할 수 있는데, 이는 kube-apiserver의 resource API를 이용하는 것이다.
-{: .notice--info}
+> kubectl top 명령어를 이용해 node or pod의 리소스 사용량을 확인 할 수 있는데, 이는 kube-apiserver의 resource API를 이용하는 것이다.
 
 metrics-server는 kubectl을 이용해 간단하게 설치가 가능하다.
 
@@ -207,10 +205,8 @@ Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavai
 
 부하가 줄어들면서 HPA가 Scale Down하는 모습을 확인할 수 있다.
 
- **NOTE:**  
- 레플리카의 수는 다음 식에 의해 결정된다.  
- desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricValue )]
-{: .notice--info}
+> 레플리카의 수는 다음 식에 의해 결정된다.  
+> desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricValue )]
 
 ## 수직형 Pod 자동 확장(Vertical Pod Autoscaler)
 
