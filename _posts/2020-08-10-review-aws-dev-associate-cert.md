@@ -11,8 +11,7 @@ tags:
 ## AWS Certification
 
 AWS는 다양한 교육프로그램 뿐만 아니라 다양한 자격 검증을 지원한다.  
-![AWS Cert list](/assets/img/posts/2020-08-10-review-aws-dev-associate-cert-list-aws-cert.png)  
-
+![AWS Cert list](/img/in-post/2020-08-10-review-aws-dev-associate-cert/aws-cert-list-aws-cert.png)  
 Foundational 부터 Specialty까지 난이도도 다양하고 Architect, Developer등 분야도 다양하다. [AWS Certification 설명](https://aws.amazon.com/certification/certification-prep/)을 보고 자신한테 맞는 자격증을 선택하면 된다. 나는 DevOps에 관심이 있어서 중간 과정으로 `AWS Developer Associate`를 선택했다.
 
 ## 시험 접수
@@ -38,7 +37,6 @@ Foundational 부터 Specialty까지 난이도도 다양하고 Architect, Develop
 
 시험 결과는 모든 시험문제를 제출하고, 설문까지 완료하면 바로 나온다. pass가 적혀 있으면 합격인데, 3 ~ 5일 내로 메일로 점수를 알려준다고 적혀있었던 것 같다. pass확인 후 바로 퇴실해서 제대로 기억이 나지 않는다.  
 시험치고 다음날 점수를 확인할 수 있다는 내용의 메일을 받았는데, [AWS Certmetrics](https://www.certmetrics.com/amazon/)에서 취득 점수와 인증서를 다운받을 수 있었다.
-![dhkang-aws-dva-cert](/assets/img/posts/2020-08-10-review-aws-dev-associate-cert-dhkang-cert.png)  
-
+![dhkang-aws-dva-cert](/img/in-post/2020-08-10-review-aws-dev-associate-cert/dhkang-aws-dev-associate-cert.png)  
 페이스북이랑 링크드인에 AWS 뱃지를 추가할 수 있다고도 하던데 나중에 추가해야겠다.  
 이제 [Certified Kubernetes Application Developer](https://www.cncf.io/certification/ckad/)를 준비해야겠다. CKAD는 300달러던데... 더 열심히 준비해야겠다.

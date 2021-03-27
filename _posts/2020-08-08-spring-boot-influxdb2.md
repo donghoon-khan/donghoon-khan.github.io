@@ -21,13 +21,13 @@ $ influxd
 ### Set up InfluxDB2
 
 influxd 데몬이 정상적으로 실행 되었다면, <http://localhost:9999>로 접속하자.
-![influxdb get started](/assets/img/posts/2020-08-08-spring-boot-influxdb2-get-started.png)
+![influxdb get started](/img/in-post/2020-08-08-spring-boot-influxdb2/get-started.png)
 
 Get Started 버튼을 눌러 계정과 버킷을 만들자.
-![influxdb initialize](/assets/img/posts/2020-08-08-spring-boot-influxdb2-initialize.png)
+![influxdb initialize](/img/in-post/2020-08-08-spring-boot-influxdb2/initialize.png)
 
 설정을 마무리 하고 홈 화면으로 가면 아래와 같은 UI가 뜰 것이다.
-![influxdb home](/assets/img/posts/2020-08-08-spring-boot-influxdb2-home.png)
+![influxdb home](/img/in-post/2020-08-08-spring-boot-influxdb2/home.png)
 
 대시보드, 쿼리, 태스크 및 알람등 다양한 기능을 사용할 수 있으니 확인해 보자. 만약 influx CLI를 사용하고자 하면 token을 확인해 환경변수로 등록하자.
 
@@ -327,7 +327,7 @@ class DemoApplicationTests {
 ```
 
 Test를 실행하고 UI를 이용해 확인해보면 데이터를 확인 할 수 있다.
-![influxdb data](/assets/img/posts/2020-08-08-spring-boot-influxdb2-data.png)
+![influxdb data](/img/in-post/2020-08-08-spring-boot-influxdb2/data.png)
 
 UI를 통해 데이터를 시각화 하거나, InfluxQL을 쉽게 만들 수 있으니 자세히 살펴보자.  
 이번 포스트에서 작성한 예제 코드는 [github](https://github.com/donghoon-khan/kubernetes-demo/tree/master/app/spring-influx2)을 참고하면 된다.

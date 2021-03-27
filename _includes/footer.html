@@ -8,12 +8,11 @@
 
                 <p class="copyright text-muted">
                     Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
-                    <br>
-                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
                     <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
                         height="20px"
-                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                        src="https://ghbtns.com/github-btn.html?user=donghoon-khan&repo=donghoon-khan.github.io&type=star&count=false">
                     </iframe>
+                    <br>
                 </p>
             </div>
         </div>
@@ -221,7 +220,7 @@
 <!-- Handle Language Change -->
 <script type="text/javascript">
     // get nodes
-    var $zh = document.querySelector(".zh");
+    var $ko = document.querySelector(".ko");
     var $en = document.querySelector(".en");
     var $select = document.querySelector("select");
 
@@ -242,13 +241,13 @@
             $select.selectedIndex = 1;
             $en.style.display = "block";
             $en.classList.add("active");
-            $zh.style.display = "none";
-            $zh.classList.remove("active");
-            // default to zh-cn
+            $ko.style.display = "none";
+            $ko.classList.remove("active");
+            // default to ko
         } else {
             $select.selectedIndex = 0;
-            $zh.style.display = "block";
-            $zh.classList.add("active");
+            $ko.style.display = "block";
+            $ko.classList.add("active");
             $en.style.display = "none";
             $en.classList.remove("active");
         }
@@ -259,7 +258,7 @@
     // handle select change
     function onLanChange(index) {
         if (index == 0) {
-            lang = "zh"
+            lang = "ko"
         } else {
             lang = "en"
         }

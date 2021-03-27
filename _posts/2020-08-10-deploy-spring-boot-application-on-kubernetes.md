@@ -18,7 +18,6 @@ Spring-boot 애플리케이션 프로젝트를 생성하고, 필요한 디펜던
 ### Create Spring-boot project
 
 [Spring initializr](https://start.spring.io/)에서 dependencies로 `webflux`, `actuator`를 추가하고 스프링 프로젝트를 생성하자.
-![spring initializr](/assets/img/posts/2020-08-10-spring-initializr.png)
 또는 curl을 이용해 프로젝트를 생성하자.
 
 ```bash
