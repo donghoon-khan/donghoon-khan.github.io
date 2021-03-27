@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Spring Boot 애플리케이션 쿠버네티스로 배포하기
+title: AWS DVA 취득 후기
 author: "Donghoon Kang"
 tags:
 - aws

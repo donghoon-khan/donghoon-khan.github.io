@@ -61,10 +61,6 @@ kramdown:
 # Disqus settings
 disqus_username: donghoon-khan-github-io
 
-# Netease settings
-netease_comment: false
-
-
 
 # Analytics settings
 # Baidu Analytics 
