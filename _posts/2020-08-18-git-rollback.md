@@ -1,5 +1,7 @@
 ---
+layout: post
 title: Git Rollback(reset, revert)
+author: "Donghoon Kang"
 category: 
 - DevOps
 tags:
@@ -12,22 +14,22 @@ Git을 사용하여 작업하다보면 이전 상태로 롤백하고 싶은 상�
 ## reset vs revert
 
 아래와 같은 이력을 가지고 있는 상태에서 8cc79c0 커밋으로 reset, revert할 때의 차이에 대해 알아보자.
-![초기 상태](/assets/img/posts/2020-08-18-git-rollback-init-state.png)
+![초기 상태](/img/in-post/2020-08-18-git-rollback/init-state.png)
 
 ### reset
 
 reset을 사용할 경우 현재 가르키고 있던 HEAD 포인터를 8cc79c0로 바꿔버린다. 즉, 8cc79c0이후의 커밋 이력을 날리고 이전 상태로 돌아간다.
-![git reset](/assets/img/posts/2020-08-18-git-rollback-git-reset.png)
+![git reset](/img/in-post/2020-08-18-git-rollback/git-reset.png)
 
 ### revert
 
 revert를 사용할 경우 커밋이력을 유지한 상태로 8cc79c0커밋에 대한 내용을 취소하고 revert를 실행했다는 새로운 커밋을 남긴다. 8cc79c0커밋 상태로 돌아가는 것이 아닌 8cc79c0커밋의 내용을 취소하고, 취소했다는 커밋을 남기는 것이다.
-![git revert](/assets/img/posts/2020-08-18-git-rollback-git-revert.png)
+![git revert](/img/in-post/2020-08-18-git-rollback/git-revert.png)
 
 ## reset
 
 reset명령은 soft, mixed, hard, merged, keep 총 5가지의 모드가 존재한다. 다음과 같은 이력을 가지고 있을 때, 각 모드 별 동작을 확인해 보자.
-![git reset](/assets/img/posts/2020-08-18-git-rollback-git-reset-5mode-ready.png)
+![git reset](/img/in-post/2020-08-18-git-rollback/git-ready.png)
 
 ```bash
 $ echo A > test
@@ -187,7 +189,7 @@ E
 ```
 
 merge모드와 keep모드의 reset 차이점은 merge conflict를 처리하는 방식이다. 테스트를 위해 다음과 같은 이력을 만들어 보자.
-![git keep vs merge](/assets/img/posts/2020-08-18-git-rollback-git-reset-keep-merge.png)
+![git keep vs merge](/img/in-post/2020-08-18-git-rollback/git-reset-keep-vs-merge.png)
 
 ```bash
 $ cat test
@@ -259,7 +261,7 @@ D
 ## revert
 
 다음과 같은 이력을 가지고 있을 때, revert 명령 수행 시 동작을 알아보자.
-![git revert](/assets/img/posts/2020-08-18-git-rollback-git-reset-5mode-ready.png)
+![git revert](/img/in-post/2020-08-18-git-rollback/git-ready.png)
 
 ```bash
 $ echo A > test
@@ -322,7 +324,7 @@ B
 ```
 
 다음과 같이 D와 C의 커밋을 취소했다는 커밋이 생기고 test파일에는 B가 기록되어 있을 것이다.
-![after git revert](/assets/img/posts/2020-08-18-git-rollback-git-revert-after.png)
+![after git revert](/img/in-post/2020-08-18-git-rollback/git-revert-after.png)
 
 취소해야할 커밋이 많다면 git revert HEAD~3와 같이 HEAD를 기준으로 몇 개의 커밋을 취소할지를 지정하거나 git revert -n master~5..master~2와 같이 커밋의 범위를 지정하면 된다.  
 revert수 만큼 커밋이 생기는 것이 싫다면 --no-commit 옵션을 사용하자.
@@ -331,12 +333,12 @@ revert수 만큼 커밋이 생기는 것이 싫다면 --no-commit 옵션을 사�
 
 그럼 reset과 revert 중 어느 것을 사용해야 할까?  
 다음과 같이 origin/master는 C를 가르키고 있는 상태에서 B로 롤백 후 B`를 기록한다고 가정하자.
-![after git revert origin](/assets/img/posts/2020-08-18-git-rollback-git-revert-origin.png)
+![after git revert origin](/img/in-post/2020-08-18-git-rollback/git-revert-origin.png)
 
 revert를 사용할 경우 HEAD를 과거로 돌리는 것이 아니기에 origin/master와 병합이 쉽다.
-![after git revert origin revert](/assets/img/posts/2020-08-18-git-rollback-git-revert-origin-revert.png)
+![after git revert origin revert](/img/in-post/2020-08-18-git-rollback/git-revert-origin-revert.png)
 
 반면 reset을 사용할 경우 다음과 같은 상태가 되며, origin/master와 병합할때 발생하는 충돌을 해결해야 한다. `force 옵션으로 충돌을 해결하지 않고 push하는 짓은 절대로 하지 말자.`
-![after git revert origin reset](/assets/img/posts/2020-08-18-git-rollback-git-revert-origin-reset.png)
+![after git revert origin reset](/img/in-post/2020-08-18-git-rollback/git-revert-origin-reset.png)
 
 이 때문에 다른 브랜치와의 병합이 필요한 경우라면 reset보다는 revert를 사용하는 것이 편하다.

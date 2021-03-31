@@ -1,12 +1,11 @@
 ---
+layout: post
 title: On-premise HA Kubernetes cluster 구축
-category: 
-- DevOps
+author: "Donghoon Kang"
 tags:
 - kubernetes
-summary: Creating higily available kubernetes cluster with haproxy and keepalived
-thumbnail: "/assets/img/thumbnail/kubernetes.png"
 ---
+
 쿠버네티스 클러스터는 `마스터`와 `노드`로 구성된다.
 
 * `마스터` - 클러스터 상태를 관리하는 프로세스의 묶음(kube-apiserver, kube-controller-manager, kube-scheduler)으로 노드를 관리하고, 클러스터의 상태를 유지할 책임을 진다.
@@ -15,11 +14,10 @@ thumbnail: "/assets/img/thumbnail/kubernetes.png"
 사용자는 마스터 내의 API Server로 원하는 상태(컨테이너 이미지, 레플리카 수, 네트워크, 디스크 등)를 요청하고, 마스터는 노드와 통신하면서 클러스터를 사용자가 원하는 상태로 관리한다. 사용자는 노드와 직접 인터페이스 할 일은 거의 없고, kubectl 또는 쿠버네티스 API를 이용해 API Server와 인터페이스 하게 된다. 클러스터를 관리하는 마스터가 shuwdown 된다면 쿠버네티스 클러스터 전체가 마비되기에 마스터의 HA는 필수이다.  
 AWS-EKS, GCP-GKE 등 클라우드 서비스를 이용한다면, 클라우드 프로바이더가 마스터의 HA를 제공하므로 사용자가 HA를 고민하지 않아도 된다. 하지만 On-premise 환경에서 쿠버네티스 클러스터를 구축한다면 HA를 고려하여 구축해야 한다. HA Proxy + Keppalived + Kubernetes 조합으로 3개의 마스터와 3개의 노드를 가지는 고가용성 쿠버네티스 클러스터를 구축해보자.
 
- **NOTE:**  
- 마스터의 수는 1,3,5,7과 같이 홀수개를 유지하는 것이 좋다. [참고](https://stackoverflow.com/questions/53843195/why-kubernetes-ha-need-odd-number-of-master)
-{: .notice--info}
+**NOTE:**  
+ 마스터의 수는 1,3,5,7과 같이 홀수개를 유지하는 것이 좋다. [In stackoverflow](https://stackoverflow.com/questions/53843195/why-kubernetes-ha-need-odd-number-of-master)
 
----
+> Because if you have an even number of servers, it's a lot easier to end up in a situation where the network breaks and you have exactly 50% on each side. With an odd number, you can't (easily) have a situation where more than one partition in the network thinks it has majority control.
 
 ## Prerequisite
 
@@ -220,7 +218,6 @@ $ sudo systemctl start haproxy
 ## Conclusion
 
 모든 단계를 마치면 아래의 그림과 같은 구성을 가지게 된다.
-![on-premise ha kubernetes cluster](/assets/img/posts/2020-08-10-block-diagram.png)  
-
+![on-premise ha kubernetes cluster](/img/in-post/2020-08-10-create-ha-k8s-cluster/cluster-diagram.png)  
 keepalived의 active상태의 Master가 죽으면 stanby상태의 Master가 active상태가 되어 VIP로 들어오는 트래픽을 ha-proxy로 전달한다. 동기화를 위해 ha-proxy로 들어온 트래픽을 모든 마스터의 apiserver로 전달함으로써 HA Master구조를 갖는 Kubernetes cluster를 구축할 수 있다.
 이제 다음 작업으로 Ceph 또는 GlusterFS를 사용해 클러스터에서 PV로 사용할 파일시스템을 구축 해 보자.

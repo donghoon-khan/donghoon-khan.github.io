@@ -1,11 +1,10 @@
 ---
+layout: post
 title: Docker multi-stage 빌드
-category: 
-- DevOps
+author: "Donghoon Kang"
 tags:
 - docker
-summary: Docker multi stage build
-thumbnail: "/assets/img/thumbnail/docker.png"
+
 ---
 Docker 컨테이너의 이미지를 만들 때 사이즈를 경량화 하는 것은 매우 중요하다.  
 Docker 이미지의 크기가 GB 단위 이거나, 부팅하는데 많은 시간이 걸린다면 Dockerized를 해서 얻는 이점이 많이 줄어들기 때문이다.

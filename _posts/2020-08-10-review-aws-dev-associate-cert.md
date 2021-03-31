@@ -1,19 +1,17 @@
 ---
+layout: post
 title: AWS DVA 취득 후기
-category: 
-- DevOps
+author: "Donghoon Kang"
 tags:
 - aws
-summary: Review AWS Certified Developer - Associate Certification
-thumbnail: /assets/img/thumbnail/aws.png
 ---
+
 회사에서 진행하는 프로젝트 덕분에 약 1년간 AWS를 접할 기회가 있었다. 주로 EKS를 구축하고 사용하는 과정에서 IAM이나 EC2, LB, EBS등을 접할 수 있었다. 말 그대로 접해본 수준이지 깊은 지식이 있던 상태가 아니었는데, DevOps에 흥미가 생기면서 클라우드를 제대로 공부해보자라는 생각이 들었다. 이후 관련 자격을 알아보던 중 `AWS Developer Associate` 자격이 눈에 들어왔고 취득하기로 마음 먹었다. 약 한달정도 공부 후 합격 했는데 간단한 후기를 적어보자.
 
 ## AWS Certification
 
 AWS는 다양한 교육프로그램 뿐만 아니라 다양한 자격 검증을 지원한다.  
-![AWS Cert list](/assets/img/posts/2020-08-10-review-aws-dev-associate-cert-list-aws-cert.png)  
-
+![AWS Cert list](/img/in-post/2020-08-10-review-aws-dev-associate-cert/aws-cert-list-aws-cert.png)  
 Foundational 부터 Specialty까지 난이도도 다양하고 Architect, Developer등 분야도 다양하다. [AWS Certification 설명](https://aws.amazon.com/certification/certification-prep/)을 보고 자신한테 맞는 자격증을 선택하면 된다. 나는 DevOps에 관심이 있어서 중간 과정으로 `AWS Developer Associate`를 선택했다.
 
 ## 시험 접수
@@ -39,7 +37,6 @@ Foundational 부터 Specialty까지 난이도도 다양하고 Architect, Develop
 
 시험 결과는 모든 시험문제를 제출하고, 설문까지 완료하면 바로 나온다. pass가 적혀 있으면 합격인데, 3 ~ 5일 내로 메일로 점수를 알려준다고 적혀있었던 것 같다. pass확인 후 바로 퇴실해서 제대로 기억이 나지 않는다.  
 시험치고 다음날 점수를 확인할 수 있다는 내용의 메일을 받았는데, [AWS Certmetrics](https://www.certmetrics.com/amazon/)에서 취득 점수와 인증서를 다운받을 수 있었다.
-![dhkang-aws-dva-cert](/assets/img/posts/2020-08-10-review-aws-dev-associate-cert-dhkang-cert.png)  
-
+![dhkang-aws-dva-cert](/img/in-post/2020-08-10-review-aws-dev-associate-cert/dhkang-aws-dev-associate-cert.png)  
 페이스북이랑 링크드인에 AWS 뱃지를 추가할 수 있다고도 하던데 나중에 추가해야겠다.  
 이제 [Certified Kubernetes Application Developer](https://www.cncf.io/certification/ckad/)를 준비해야겠다. CKAD는 300달러던데... 더 열심히 준비해야겠다.

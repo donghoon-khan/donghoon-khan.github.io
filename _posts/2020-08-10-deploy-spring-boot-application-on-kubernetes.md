@@ -1,15 +1,13 @@
 ---
+layout: post
 title: Spring Boot 애플리케이션 쿠버네티스로 배포하기
-category: 
-- DevOps
-- web
+author: "Donghoon Kang"
 tags:
 - spring
 - kubernetes
 - docker
-summary: Deploy Spring-Boot application to Kubernetes cluster
-thumbnail: /assets/img/thumbnail/spring+docker+kubernetes.png
 ---
+
 스프링 프레임워크는 자바 플랫폼을 위한 오픈소스 애플리케이션 프레임워크로, 따로 설명하지 않아도 웹개발자라면 한번씩은 경험해본 프레임워크일 것이다. Spring은 MSA를 위해 [Spring-Cloud](https://spring.io/projects/spring-cloud)라는 라이브러리를 제공하는데 라우팅, 로드밸런싱, 서킷브레이커 등 많은 기능을 제공한다. Spring cloud만 사용해도 쿠버네티스 못지 않은 강력한 MSA환경을 구축할 수 있을 것 이다. 아쉬운 점은 Auto-scaling이나 Self-Healing과 같은 기능을 프레임워크 단에서 제공하지 않는다는 것이다. 
 이 글에서는 Spring-boot 애플리케이션을 쿠버네티스 클러스터에 배포하는 방법에 대해서 설명한다.
 
@@ -20,7 +18,6 @@ Spring-boot 애플리케이션 프로젝트를 생성하고, 필요한 디펜던
 ### Create Spring-boot project
 
 [Spring initializr](https://start.spring.io/)에서 dependencies로 `webflux`, `actuator`를 추가하고 스프링 프로젝트를 생성하자.
-![spring initializr](/assets/img/posts/2020-08-10-spring-initializr.png)
 또는 curl을 이용해 프로젝트를 생성하자.
 
 ```bash

@@ -1,42 +1,23 @@
----
----
+<!DOCTYPE html>
+<html lang="en">
 
-<!doctype html>
-<!--
-  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
-  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
-  Free for personal and commercial use under the MIT license
-  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
--->
-<html lang="{{ site.locale | slice: 0,2 | default: "en" }}" class="no-js">
-  <head>
-    {% include head.html %}
-    {% include head/custom.html %}
-  </head>
+{% include head.html %}
 
-  <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
-    {% include_cached skip-links.html %}
-    {% include_cached browser-upgrade.html %}
-    {% include_cached masthead.html %}
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
 
-    <div class="initial-content">
-      {{ content }}
-    </div>
+    {% include nav.html %}
+    {% include search.html %}
 
-    {% if site.search == true %}
-      <div class="search-content">
-        {% include_cached search/search_form.html %}
-      </div>
-    {% endif %}
+    {{ content }}
 
-    <div id="footer" class="page__footer">
-      <footer>
-        {% include footer/custom.html %}
-        {% include_cached footer.html %}
-      </footer>
-    </div>
+    {% include footer.html %}
 
-    {% include scripts.html %}
 
-  </body>
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
 </html>
